@@ -20,8 +20,11 @@
 
         public class Client
         {
+            public const int FirstNameMinLength = 3;
             public const int FirstNameMaxLength = 30;
+            public const int LastNameMinLength = 5;
             public const int LastNameMaxLength = 30;
+            public const int PhoneNumberMinLength = 10;
             public const int PhoneNumberMaxLength = 15;
         }
 
