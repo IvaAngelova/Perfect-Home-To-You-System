@@ -232,7 +232,7 @@ namespace PerfectHomeToYou.Data.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -424,9 +424,11 @@ namespace PerfectHomeToYou.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PerfectHomeToYou.Data.Models.Client", null)
+                    b.HasOne("PerfectHomeToYou.Data.Models.Client", "Client")
                         .WithMany("Apartments")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("PerfectHomeToYou.Data.Models.Neighborhood", "Neighborhood")
                         .WithMany("Apartments")
@@ -435,6 +437,8 @@ namespace PerfectHomeToYou.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
+
+                    b.Navigation("Client");
 
                     b.Navigation("Neighborhood");
                 });

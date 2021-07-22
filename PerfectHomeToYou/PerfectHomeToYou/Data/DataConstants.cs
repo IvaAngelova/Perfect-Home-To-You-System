@@ -4,7 +4,9 @@
     {
         public class Apartment
         {
+            public const int FloorMinLength = 0;
             public const int FloorMaxLength = 15;
+            public const int DescriptionMinLength = 10;
         }
 
         public class Neighborhood

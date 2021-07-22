@@ -10,8 +10,8 @@ using PerfectHomeToYou.Data;
 namespace PerfectHomeToYou.Data.Migrations
 {
     [DbContext(typeof(PerfectHomeToYouDbContext))]
-    [Migration("20210721204323_AddTables")]
-    partial class AddTables
+    [Migration("20210722172056_CreateTables")]
+    partial class CreateTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -234,7 +234,7 @@ namespace PerfectHomeToYou.Data.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -426,9 +426,11 @@ namespace PerfectHomeToYou.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PerfectHomeToYou.Data.Models.Client", null)
+                    b.HasOne("PerfectHomeToYou.Data.Models.Client", "Client")
                         .WithMany("Apartments")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("PerfectHomeToYou.Data.Models.Neighborhood", "Neighborhood")
                         .WithMany("Apartments")
@@ -437,6 +439,8 @@ namespace PerfectHomeToYou.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
+
+                    b.Navigation("Client");
 
                     b.Navigation("Neighborhood");
                 });
