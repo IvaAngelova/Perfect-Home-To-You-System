@@ -21,13 +21,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Apartments" asp-action="All">All Apartments</a>
-                        </li>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Apartments" asp-action="Add">Add Apartment</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Apartments" asp-action="All">All Apartments</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Apartments
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Apartments" asp-action="Add">Add Apartment</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Apartments" asp-action="All">All Apartments</a>
+                                </div>
                             </li>
                         }
                     </ul>
