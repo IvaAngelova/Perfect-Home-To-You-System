@@ -34,25 +34,28 @@
     <input type="submit" class="btn btn-primary d-none">
 </form>
 
-@if (!Model.Apartments.Any())
+@if (Model.Apartments == null)
 {
     <h2 class="text-center">No apartments found by given criteria!</h2>
 }
-
-<div class="row">
-    @foreach (var apartment in Model.Apartments)
-    {
-        <div class="col-md-4">
-            <div class="card md-3">
-                <img class="card-img-top" src="@apartment.ImageUrl" alt="@apartment.City @apartment.Neighborhood - @apartment.Price (@apartment.RentOrSell)">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-center">@apartment.Price @apartment.City @apartment.Neighborhood (@apartment.RentOrSell)</h5>
-                    <a asp-controller="Cars" asp-action="Details" asp-route-id="@apartment.Id" class="btn btn-primary">View More</a>
+else
+{
+    <div class="row">
+        @foreach (var apartment in Model.Apartments)
+        {
+            <div class="col-md-4">
+                <div class="card md-3">
+                    <img class="card-img-top" src="@apartment.ImageUrl" alt="@apartment.City @apartment.Neighborhood - @apartment.Price (@apartment.RentOrSell)">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-center">@apartment.Price @apartment.City @apartment.Neighborhood (@apartment.RentOrSell)</h5>
+                        <a asp-controller="Cars" asp-action="Details" asp-route-id="@apartment.Id" class="btn btn-primary">View More</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+
+}
 
 @{
     var previousPage = Model.CurrentPage - 1;
