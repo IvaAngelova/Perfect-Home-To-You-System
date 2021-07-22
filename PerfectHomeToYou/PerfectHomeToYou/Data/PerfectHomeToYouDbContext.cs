@@ -44,6 +44,13 @@ namespace PerfectHomeToYou.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
+                .Entity<Neighborhood>()
+                .HasOne(c => c.City)
+                .WithMany(c => c.Neighborhoods)
+                .HasForeignKey(c => c.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
                 .Entity<Question>()
                 .HasOne(c => c.Client)
                 .WithMany(c => c.Questions)

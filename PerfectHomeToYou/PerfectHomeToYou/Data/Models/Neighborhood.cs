@@ -12,6 +12,9 @@ namespace PerfectHomeToYou.Data.Models
         [Required]
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
+        
+        public int CityId { get; set; }
+        public City City { get; init; }
 
         public IEnumerable<Apartment> Apartments { get; init; }
             = new List<Apartment>();

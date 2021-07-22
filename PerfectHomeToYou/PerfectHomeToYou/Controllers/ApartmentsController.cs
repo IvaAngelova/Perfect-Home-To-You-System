@@ -9,8 +9,6 @@ using PerfectHomeToYou.Data.Models;
 using PerfectHomeToYou.Infrastructure;
 using PerfectHomeToYou.Models.Apartments;
 using PerfectHomeToYou.Services.Apartments;
-using PerfectHomeToYou.Data.Models.Enumerations;
-using System;
 
 namespace PerfectHomeToYou.Controllers
 {
@@ -65,10 +63,6 @@ namespace PerfectHomeToYou.Controllers
             {
                 this.ModelState.AddModelError(nameof(apartment.NeighborhoodId), "Neighborhood does not exist.");
             }
-
-            var apartmentsTypesValues = new List<ApartmentsTypes>();
-
-            
 
             if (!ModelState.IsValid)
             {
