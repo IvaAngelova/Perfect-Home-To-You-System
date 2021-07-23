@@ -17,6 +17,7 @@
                 <div class="form-group">
                     <label asp-for="CityId"></label>
                     <select asp-for="CityId" class="form-control">
+                        <option value="">-- Select City --</option>
                         @foreach (var city in Model.Cities)
                         {
                             <option value="@city.Id">@city.Name</option>

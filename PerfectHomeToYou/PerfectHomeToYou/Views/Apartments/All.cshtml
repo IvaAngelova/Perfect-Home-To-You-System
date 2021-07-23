@@ -10,7 +10,8 @@
             <div class="form-group">
                 <div class="form-group">
                     <label asp-for="ApartmentsTypes">Apartments Types</label>
-                    <select asp-for="ApartmentsTypes" class="form-control" asp-items="Html.GetEnumSelectList<ApartmentsTypes>().OrderBy(x => x.Value)"></select>
+                    <select asp-for="ApartmentsTypes" class="form-control" asp-items="Html.GetEnumSelectList<ApartmentsTypes>().OrderBy(x => x.Value)">
+                    </select>
                     <span asp-validation-for="ApartmentsTypes" class="text-danger"></span>
                 </div>
             </div>

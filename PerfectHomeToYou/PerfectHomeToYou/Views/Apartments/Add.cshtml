@@ -12,12 +12,15 @@
                 <div class="form-group">
                     <label asp-for="ApartmentsTypes">Apartments Types</label>
                     <select asp-for="ApartmentsTypes" class="form-control" asp-items="Html.GetEnumSelectList<ApartmentsTypes>().OrderBy(x => x.Value)"
-                            placeholder="Apartment Type..."></select>
+                            placeholder="Apartment Type...">
+                        <option value="">-- Select Apartment Type --</option>
+                    </select>
                     <span asp-validation-for="ApartmentsTypes" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CityId"></label>
                     <select asp-for="CityId" class="form-control">
+                        <option value="">-- Select City --</option>
                         @foreach (var city in Model.Cities)
                         {
                             <option value="@city.Id">@city.Name</option>
@@ -28,6 +31,7 @@
                 <div class="form-group">
                     <label asp-for="NeighborhoodId"></label>
                     <select asp-for="NeighborhoodId" class="form-control">
+                        <option value="">-- Select Neighborhood --</option>
                         @foreach (var neighborhood in Model.Neighborhoods)
                         {
                             <option value="@neighborhood.Id">@neighborhood.Name</option>
@@ -58,7 +62,9 @@
                 <div class="form-group">
                     <label asp-for="RentOrSell">Rent or Sell</label>
                     <select asp-for="RentOrSell" class="form-control" asp-items="Html.GetEnumSelectList<RentOrSell>().OrderBy(x => x.Value)"
-                            placeholder="Rent or Sell..."></select>
+                            placeholder="Rent or Sell...">
+                        <option value="">-- Select Rent or Sell --</option>
+                    </select>
                     <span asp-validation-for="RentOrSell" class="text-danger"></span>
                 </div>
                 <input class="btn btn-primary mt-3" type="submit" value="Save" />
