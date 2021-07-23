@@ -1,26 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using PerfectHomeToYou.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
+using PerfectHomeToYou.Data;
+using PerfectHomeToYou.Models;
+using PerfectHomeToYou.Models.Home;
 
 namespace PerfectHomeToYou.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly PerfectHomeToYouDbContext context;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(PerfectHomeToYouDbContext context) 
+            => this.context = context;
 
         public IActionResult Index()
         {
-            return View();
+            var apartments = this.context
+                .Apartments
+                .OrderByDescending(c => c.Id)
+                .Select(c => new ApartmentIndexViewModel
+                {
+                    Id = c.Id,
+                    City = c.City.Name,
+                    Neighborhood = c.Neighborhood.Name,
+                    ImageUrl = c.ImageUrl,
+                    Price = c.Price,
+                    RentOrSell = c.RentOrSell.ToString()
+                })
+                .Take(3)
+                .ToList();
+
+            return View(new IndexViewModel
+            {
+                Apartments = apartments
+            });
         }
 
         public IActionResult Privacy()
