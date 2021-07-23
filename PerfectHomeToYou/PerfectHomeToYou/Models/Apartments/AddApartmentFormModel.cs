@@ -15,7 +15,7 @@ namespace PerfectHomeToYou.Models.Apartments
 
         [Display(Name = "City")]
         public int CityId { get; init; }
-        public IEnumerable<ApartmentCityViewModel> Cities { get; set; }
+        public IEnumerable<CityViewModel> Cities { get; set; }
 
         [Display(Name = "Neighborhood")]
         public int NeighborhoodId { get; init; }

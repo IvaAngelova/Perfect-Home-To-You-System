@@ -48,7 +48,7 @@ else
                     <img class="card-img-top" src="@apartment.ImageUrl" alt="@apartment.City @apartment.Neighborhood - @apartment.Price (@apartment.RentOrSell)">
                     <div class="card-body text-center">
                         <h5 class="card-title text-center">@apartment.Price @apartment.City @apartment.Neighborhood (@apartment.RentOrSell)</h5>
-                        <a asp-controller="Cars" asp-action="Details" asp-route-id="@apartment.Id" class="btn btn-primary">View More</a>
+                        <a asp-controller="Apartments" asp-action="Details" asp-route-id="@apartment.Id" class="btn btn-primary">View More</a>
                     </div>
                 </div>
             </div>

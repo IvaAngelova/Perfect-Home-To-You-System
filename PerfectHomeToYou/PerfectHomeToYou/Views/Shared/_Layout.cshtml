@@ -49,6 +49,16 @@
                                     <a class="dropdown-item" asp-area="" asp-controller="Cities" asp-action="All">All Cities</a>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Neighborhoods
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Neighborhoods" asp-action="Add">Add Neighborhood</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Neighborhoods" asp-action="All">All Neighborhoods</a>
+                                </div>
+                            </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />

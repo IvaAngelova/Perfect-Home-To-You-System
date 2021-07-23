@@ -8,8 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 using PerfectHomeToYou.Data;
 using PerfectHomeToYou.Infrastructure;
-using PerfectHomeToYou.Services.Apartments;
 using PerfectHomeToYou.Services.Cities;
+using PerfectHomeToYou.Services.Apartments;
+using PerfectHomeToYou.Services.Neighborhoods;
 
 namespace PerfectHomeToYou
 {
@@ -41,6 +42,7 @@ namespace PerfectHomeToYou
 
             services.AddTransient<IApartmentServices, ApartmentServices>();
             services.AddTransient<ICityServices, CityServices>();
+            services.AddTransient<INeighborhoodServices, NeighborhoodServices>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

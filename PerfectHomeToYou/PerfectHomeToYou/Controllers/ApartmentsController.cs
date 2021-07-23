@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
 using PerfectHomeToYou.Data;
+using PerfectHomeToYou.Models;
 using PerfectHomeToYou.Data.Models;
 using PerfectHomeToYou.Infrastructure;
 using PerfectHomeToYou.Models.Apartments;
@@ -72,7 +73,6 @@ namespace PerfectHomeToYou.Controllers
                 return View(apartment);
             }
 
-
             var apartmentData = new Apartment
             {
                 ApartmentType = apartment.ApartmentsTypes,
@@ -112,10 +112,10 @@ namespace PerfectHomeToYou.Controllers
                 .Clients
                 .Any(d => d.UserId == this.User.GetId());
 
-        private IEnumerable<ApartmentCityViewModel> GetApartmentCities()
+        private IEnumerable<CityViewModel> GetApartmentCities()
             => this.context
                     .Cities
-                    .Select(c => new ApartmentCityViewModel
+                    .Select(c => new CityViewModel
                     {
                         Id = c.Id,
                         Name = c.Name,

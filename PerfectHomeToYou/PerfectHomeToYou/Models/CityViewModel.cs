@@ -1,6 +1,6 @@
-﻿namespace PerfectHomeToYou.Models.Apartments
+﻿namespace PerfectHomeToYou.Models
 {
-    public class ApartmentCityViewModel
+    public class CityViewModel
     {
         public int Id { get; init; }
 
