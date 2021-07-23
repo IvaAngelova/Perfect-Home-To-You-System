@@ -8,8 +8,6 @@ namespace PerfectHomeToYou.Models.Home
 
         public int TotalUsers { get; init; }
 
-        public int TotalRents { get; init; }
-
         public List<ApartmentIndexViewModel> Apartments { get; set; }
     }
 }

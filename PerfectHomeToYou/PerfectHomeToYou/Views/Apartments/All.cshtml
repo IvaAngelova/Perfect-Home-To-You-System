@@ -34,7 +34,7 @@
     <input type="submit" class="btn btn-primary d-none">
 </form>
 
-@if (Model.Apartments == null)
+@if (!Model.Apartments.Any())
 {
     <h2 class="text-center">No apartments found by given criteria!</h2>
 }

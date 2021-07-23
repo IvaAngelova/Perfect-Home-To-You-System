@@ -72,3 +72,17 @@
 </div>
 
 <div class="mb-5"></div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="jumbotron">
+        <div class="row">
+            <h2 class="col-md-6 text-center">
+                @Model.TotalApartments Total Apartments
+            </h2>
+            <h2 class="col-md-6 text-center">
+                @Model.TotalUsers Total Users
+            </h2>
+        </div>
+    </div>
+}

@@ -32,8 +32,15 @@ namespace PerfectHomeToYou.Controllers
                 .Take(3)
                 .ToList();
 
+            var totalApartments = apartments.Count();
+            var totalUsers = this.context
+                .Users
+                .Count();
+
             return View(new IndexViewModel
             {
+                TotalApartments = totalApartments,
+                TotalUsers = totalUsers,
                 Apartments = apartments
             });
         }
