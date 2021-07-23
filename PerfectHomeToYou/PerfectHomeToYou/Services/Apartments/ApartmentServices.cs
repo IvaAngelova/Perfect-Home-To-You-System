@@ -3,7 +3,6 @@
 using PerfectHomeToYou.Data;
 using PerfectHomeToYou.Models;
 using PerfectHomeToYou.Data.Models.Enumerations;
-using System.Collections.Generic;
 
 namespace PerfectHomeToYou.Services.Apartments
 {
@@ -31,7 +30,7 @@ namespace PerfectHomeToYou.Services.Apartments
             {
                 apartmentQuery = apartmentQuery
                     .Where(a =>
-                    a.City.Name.ToLower().Contains(searchTerm.ToLower())
+                       a.City.Name.ToLower().Contains(searchTerm.ToLower())
                     || a.Neighborhood.Name.ToLower().Contains(searchTerm.ToLower())
                     || a.Description.ToLower().Contains(searchTerm.ToLower()));
             }

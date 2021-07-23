@@ -39,6 +39,16 @@
                                     <a class="dropdown-item" asp-area="" asp-controller="Apartments" asp-action="All">All Apartments</a>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Cities
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Cities" asp-action="Add">Add City</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Cities" asp-action="All">All Cities</a>
+                                </div>
+                            </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />
@@ -54,7 +64,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.UtcNow - PerfectHomeToYou - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.UtcNow - Perfect Home To You - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

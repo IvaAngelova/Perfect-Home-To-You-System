@@ -11,12 +11,15 @@
 
         public class Neighborhood
         {
+            public const int NameMinLength = 5;
             public const int NameMaxLength = 40;
         }
 
         public class City
         {
+            public const int NameMinLength = 3;
             public const int NameMaxLength = 40;
+            public const int PostcodeMinLength = 4;
             public const int PostcodeMaxLength = 4;
         }
 

@@ -1,0 +1,26 @@
+﻿@model AddCityFormModel
+
+@{
+    ViewData["Title"] = "Add City";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+            <h2 class="heading-margin text-center">Add City</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Please enter a city name">
+                    <span asp-validation-for="Name" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Postcode"></label>
+                    <input asp-for="Postcode" class="form-control" placeholder="Please enter a city postcode">
+                    <span asp-validation-for="Postcode" class="small text-danger"></span>
+                </div>
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </form>
+        </div>
+    </div>
+</div>

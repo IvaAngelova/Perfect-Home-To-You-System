@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+using PerfectHomeToYou.Services.Apartments;
 using PerfectHomeToYou.Data.Models.Enumerations;
 
 namespace PerfectHomeToYou.Models.Apartments
@@ -20,6 +21,6 @@ namespace PerfectHomeToYou.Models.Apartments
 
         public int TotalApartments { get; set; }
 
-        public IEnumerable<ApartmentServiceModel> Apartments { get; set; }
+        public IEnumerable<ApartmentServicesModel> Apartments { get; set; }
     }
 }

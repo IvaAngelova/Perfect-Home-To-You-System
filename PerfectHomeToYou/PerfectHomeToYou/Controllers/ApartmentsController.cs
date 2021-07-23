@@ -102,7 +102,7 @@ namespace PerfectHomeToYou.Controllers
                 AllApartmentsQueryModel.ApartmentsPerPage);
 
             query.TotalApartments = queryResult.TotalApartments;
-            query.Apartments = query.Apartments;
+            query.Apartments = queryResult.Apartments;
 
             return View(query);
         }
