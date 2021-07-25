@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 
 using PerfectHomeToYou.Data;
 using PerfectHomeToYou.Models;
-using PerfectHomeToYou.Data.Models;
 using PerfectHomeToYou.Infrastructure;
+using PerfectHomeToYou.Services.Clients;
 using PerfectHomeToYou.Models.Apartments;
 using PerfectHomeToYou.Services.Apartments;
 
@@ -15,12 +15,14 @@ namespace PerfectHomeToYou.Controllers
 {
     public class ApartmentsController : Controller
     {
+        private readonly IClientService clients;
         private readonly IApartmentServices apartments;
         private readonly PerfectHomeToYouDbContext context;
 
-        public ApartmentsController(IApartmentServices apartments,
+        public ApartmentsController(IClientService clients, IApartmentServices apartments,
             PerfectHomeToYouDbContext context)
         {
+            this.clients = clients;
             this.apartments = apartments;
             this.context = context;
         }
@@ -44,11 +46,7 @@ namespace PerfectHomeToYou.Controllers
         [Authorize]
         public IActionResult Add(AddApartmentFormModel apartment)
         {
-            var clientId = this.context
-                .Clients
-                .Where(c => c.UserId == this.User.GetId())
-                .Select(c => c.Id)
-                .FirstOrDefault();
+            var clientId = this.clients.IdByUser(this.User.Id());
 
             if (clientId == 0)
             {
@@ -73,21 +71,8 @@ namespace PerfectHomeToYou.Controllers
                 return View(apartment);
             }
 
-            var apartmentData = new Apartment
-            {
-                ApartmentType = apartment.ApartmentsTypes,
-                CityId = apartment.CityId,
-                NeighborhoodId = apartment.NeighborhoodId,
-                Floor = apartment.Floor,
-                Description = apartment.Description,
-                ImageUrl = apartment.ImageUrl,
-                Price = apartment.Price,
-                RentOrSell = apartment.RentOrSell,
-                ClientId = clientId
-            };
-
-            this.context.Apartments.Add(apartmentData);
-            this.context.SaveChanges();
+            this.apartments.Create(apartment.ApartmentsTypes, apartment.CityId, apartment.NeighborhoodId,
+                apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSell, clientId);
 
             return RedirectToAction(nameof(All));
         }
@@ -110,7 +95,7 @@ namespace PerfectHomeToYou.Controllers
         private bool UserIsClient()
             => this.context
                 .Clients
-                .Any(d => d.UserId == this.User.GetId());
+                .Any(d => d.UserId == this.User.Id());
 
         private IEnumerable<CityViewModel> GetApartmentCities()
             => this.context

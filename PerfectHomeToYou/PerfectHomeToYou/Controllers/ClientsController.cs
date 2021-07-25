@@ -24,7 +24,7 @@ namespace PerfectHomeToYou.Controllers
         [Authorize]
         public IActionResult Become(BecomeClientFormModel client)
         {
-            var userId = this.User.GetId();
+            var userId = this.User.Id();
 
             var userIsAlreadyClient = this.context
                 .Clients

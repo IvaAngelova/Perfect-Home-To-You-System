@@ -39,7 +39,7 @@ namespace PerfectHomeToYou.Controllers
         {
             var clientId = this.context
                 .Clients
-                .Where(c => c.UserId == this.User.GetId())
+                .Where(c => c.UserId == this.User.Id())
                 .Select(c => c.Id)
                 .FirstOrDefault();
 
@@ -86,6 +86,6 @@ namespace PerfectHomeToYou.Controllers
         private bool UserIsClient()
         => this.context
             .Clients
-            .Any(d => d.UserId == this.User.GetId());
+            .Any(d => d.UserId == this.User.Id());
     }
 }

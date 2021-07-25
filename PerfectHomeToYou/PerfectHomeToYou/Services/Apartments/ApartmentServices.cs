@@ -3,6 +3,7 @@
 using PerfectHomeToYou.Data;
 using PerfectHomeToYou.Models;
 using PerfectHomeToYou.Data.Models.Enumerations;
+using PerfectHomeToYou.Data.Models;
 
 namespace PerfectHomeToYou.Services.Apartments
 {
@@ -73,6 +74,28 @@ namespace PerfectHomeToYou.Services.Apartments
                 ApartmentsPerPage = apartmentsPerPage,
                 Apartments = apartments
             };
+        }
+
+        public int Create(ApartmentsTypes apartmentsTypes, int cityId, int neighborhoodId, 
+            int floor, string description, string imageUrl, decimal price, RentOrSell rentOrSell, int clientId)
+        {
+            var apartmentData = new Apartment
+            {
+                ApartmentType = apartmentsTypes,
+                CityId = cityId,
+                NeighborhoodId = neighborhoodId,
+                Floor = floor,
+                Description = description,
+                ImageUrl = imageUrl,
+                Price = price,
+                RentOrSell = rentOrSell,
+                ClientId = clientId
+            };
+
+            this.context.Apartments.Add(apartmentData);
+            this.context.SaveChanges();
+
+            return apartmentData.Id;
         }
     }
 }

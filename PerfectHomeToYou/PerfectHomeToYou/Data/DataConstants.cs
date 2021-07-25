@@ -35,7 +35,8 @@
 
         public class Question
         {
-            public const int MessageMaxLength = 500;
+            public const int MessageMinLength = 10;
+            public const int MessageMaxLength = 1000;
         }
     }
 }

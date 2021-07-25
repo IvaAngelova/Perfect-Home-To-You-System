@@ -10,5 +10,15 @@ namespace PerfectHomeToYou.Services.Apartments
            ApartmentSorting sorting,
            int currentPage,
            int apartmentsPerPage);
+
+        int Create(ApartmentsTypes apartmentsTypes,
+                int cityId,
+                int neighborhoodId,
+                int floor,
+                string description,
+                string imageUrl,
+                decimal price,
+                RentOrSell rentOrSell,
+                int clientId);
     }
 }

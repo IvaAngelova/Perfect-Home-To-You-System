@@ -3,8 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PerfectHomeToYou.Data;
 
 namespace PerfectHomeToYou.Data.Migrations
 {
@@ -352,6 +350,9 @@ namespace PerfectHomeToYou.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ApartmentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
@@ -364,6 +365,8 @@ namespace PerfectHomeToYou.Data.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApartmentId");
 
                     b.HasIndex("ClientId");
 
@@ -470,13 +473,26 @@ namespace PerfectHomeToYou.Data.Migrations
 
             modelBuilder.Entity("PerfectHomeToYou.Data.Models.Question", b =>
                 {
+                    b.HasOne("PerfectHomeToYou.Data.Models.Apartment", "Apartment")
+                        .WithMany("Questions")
+                        .HasForeignKey("ApartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("PerfectHomeToYou.Data.Models.Client", "Client")
                         .WithMany("Questions")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Apartment");
+
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("PerfectHomeToYou.Data.Models.Apartment", b =>
+                {
+                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("PerfectHomeToYou.Data.Models.City", b =>
