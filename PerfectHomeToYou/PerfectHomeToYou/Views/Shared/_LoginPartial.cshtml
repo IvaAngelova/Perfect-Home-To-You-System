@@ -1,10 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using PerfectHomeToYou.Services.Clients
+
 @inject UserManager<IdentityUser> UserManager
 @inject SignInManager<IdentityUser> SignInManager
+@inject IClientService Clients
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Apartments" asp-action="Mine">My Apartments</a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Become">Become Client</a>
         </li>

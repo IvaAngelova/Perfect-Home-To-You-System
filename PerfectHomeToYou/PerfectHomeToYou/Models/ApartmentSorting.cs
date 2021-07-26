@@ -2,9 +2,9 @@
 {
     public enum ApartmentSorting
     {
-        DateCreated = 1,
-        Floor = 2,
-        Rent = 3,
-        Sell = 4
+        DateCreated = 0,
+        Floor = 1,
+        Rent = 2,
+        Sell = 3
     }
 }

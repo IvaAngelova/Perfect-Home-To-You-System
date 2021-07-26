@@ -10,6 +10,6 @@ namespace PerfectHomeToYou.Services.Apartments
 
         public int TotalApartments { get; init; }
 
-        public IEnumerable<ApartmentServicesModel> Apartments { get; init; }
+        public IEnumerable<ApartmentServiceModel> Apartments { get; init; }
     }
 }

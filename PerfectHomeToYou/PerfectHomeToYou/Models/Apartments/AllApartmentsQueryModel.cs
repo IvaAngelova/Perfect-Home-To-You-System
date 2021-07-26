@@ -21,6 +21,6 @@ namespace PerfectHomeToYou.Models.Apartments
 
         public int TotalApartments { get; set; }
 
-        public IEnumerable<ApartmentServicesModel> Apartments { get; set; }
+        public IEnumerable<ApartmentServiceModel> Apartments { get; set; }
     }
 }

@@ -1,6 +1,6 @@
-﻿using PerfectHomeToYou.Data;
-using System;
-using System.Linq;
+﻿using System.Linq;
+
+using PerfectHomeToYou.Data;
 
 namespace PerfectHomeToYou.Services.Clients
 {
@@ -19,8 +19,8 @@ namespace PerfectHomeToYou.Services.Clients
                 .FirstOrDefault();
 
         public bool IsClient(string userId)
-        {
-            throw new NotImplementedException();
-        }
+            => this.context
+                   .Clients
+                   .Any(c => c.UserId == userId);
     }
 }

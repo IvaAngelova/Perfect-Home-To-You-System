@@ -58,7 +58,7 @@ namespace PerfectHomeToYou.Controllers
                 this.ModelState.AddModelError(nameof(neighborhood.Name), "Neighborhood already exists");
             }
 
-            if (this.context.Neighborhoods.Any(n => n.CityId == neighborhood.CityId))
+            if (this.context.Neighborhoods.Any(n => n.City.Neighborhoods.Any(n=>n.Name == neighborhood.Name)))
             {
                 this.ModelState.AddModelError(nameof(neighborhood), "Neighborhood already exists in the city");
             }

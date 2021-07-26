@@ -7,7 +7,7 @@ using static PerfectHomeToYou.Data.DataConstants.Apartment;
 
 namespace PerfectHomeToYou.Models.Apartments
 {
-    public class AddApartmentFormModel
+    public class ApartmentFormModel
     {
         [Required]
         [EnumDataType(typeof(ApartmentsTypes))]
@@ -19,7 +19,7 @@ namespace PerfectHomeToYou.Models.Apartments
 
         [Display(Name = "Neighborhood")]
         public int NeighborhoodId { get; init; }
-        public IEnumerable<ApartmentNeighborhoodViewModel> Neighborhoods { get; set; }
+        public IEnumerable<ApartmentNeighborhoodModel> Neighborhoods { get; set; }
 
         [Required]
         [Range(FloorMinLength, FloorMaxLength)]

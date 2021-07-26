@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ApartmentServiceModel>
+
+@{
+    ViewBag.Title = "My Apartments";
+    ViewBag.AllowApartmentEdit = true;
+}
+
+@if (!Model.Any())
+{
+<h2 class="text-center">You do not have any apartments yet!</h2>
+}
+
+<partial name="_ApartmentsPartial" model="@Model" />

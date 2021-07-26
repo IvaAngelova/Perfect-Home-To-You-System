@@ -1,11 +1,6 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-using PerfectHomeToYou.Data;
-using PerfectHomeToYou.Models;
 using PerfectHomeToYou.Infrastructure;
 using PerfectHomeToYou.Services.Clients;
 using PerfectHomeToYou.Models.Apartments;
@@ -16,35 +11,32 @@ namespace PerfectHomeToYou.Controllers
     public class ApartmentsController : Controller
     {
         private readonly IClientService clients;
-        private readonly IApartmentServices apartments;
-        private readonly PerfectHomeToYouDbContext context;
+        private readonly IApartmentService apartments;
 
-        public ApartmentsController(IClientService clients, IApartmentServices apartments,
-            PerfectHomeToYouDbContext context)
+        public ApartmentsController(IClientService clients, IApartmentService apartments)
         {
             this.clients = clients;
             this.apartments = apartments;
-            this.context = context;
         }
 
         [Authorize]
         public IActionResult Add()
         {
-            if (!this.UserIsClient())
+            if (!this.clients.IsClient(this.User.Id()))
             {
                 return RedirectToAction(nameof(ClientsController.Become), "Clients");
             }
 
-            return View(new AddApartmentFormModel
+            return View(new ApartmentFormModel
             {
-                Cities = this.GetApartmentCities(),
-                Neighborhoods = this.GetApartmentNeighborhoods()
+                Cities = this.apartments.GetApartmentCities(),
+                Neighborhoods = this.apartments.GetApartmentNeighborhoods()
             });
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddApartmentFormModel apartment)
+        public IActionResult Add(ApartmentFormModel apartment)
         {
             var clientId = this.clients.IdByUser(this.User.Id());
 
@@ -53,20 +45,20 @@ namespace PerfectHomeToYou.Controllers
                 return RedirectToAction(nameof(ClientsController.Become), "Clients");
             }
 
-            if (!this.context.Cities.Any(c => c.Id == apartment.CityId))
+            if (!this.apartments.CityExists(apartment.CityId))
             {
                 this.ModelState.AddModelError(nameof(apartment.CityId), "City does not exist.");
             }
 
-            if (!this.context.Neighborhoods.Any(c => c.Id == apartment.NeighborhoodId))
+            if (!this.apartments.NeighborhoodExists(apartment.NeighborhoodId))
             {
                 this.ModelState.AddModelError(nameof(apartment.NeighborhoodId), "Neighborhood does not exist.");
             }
 
             if (!ModelState.IsValid)
             {
-                apartment.Cities = this.GetApartmentCities();
-                apartment.Neighborhoods = this.GetApartmentNeighborhoods();
+                apartment.Cities = this.apartments.GetApartmentCities();
+                apartment.Neighborhoods = this.apartments.GetApartmentNeighborhoods();
 
                 return View(apartment);
             }
@@ -75,6 +67,15 @@ namespace PerfectHomeToYou.Controllers
                 apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSell, clientId);
 
             return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        public IActionResult Mine()
+        {
+            var myApartments = this.apartments
+                .ByUser(this.User.Id());
+
+            return View(myApartments);
         }
 
         public IActionResult All([FromQuery] AllApartmentsQueryModel query)
@@ -92,30 +93,62 @@ namespace PerfectHomeToYou.Controllers
             return View(query);
         }
 
-        private bool UserIsClient()
-            => this.context
-                .Clients
-                .Any(d => d.UserId == this.User.Id());
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var userId = this.User.Id();
 
-        private IEnumerable<CityViewModel> GetApartmentCities()
-            => this.context
-                    .Cities
-                    .Select(c => new CityViewModel
-                    {
-                        Id = c.Id,
-                        Name = c.Name,
-                        Postcode = c.Postcode
-                    })
-                    .ToList();
+            if (!this.clients.IsClient(userId)) //&& !User.IsAdmin())
+            {
+                return RedirectToAction(nameof(ClientsController.Become), "Clients");
+            }
 
-        private IEnumerable<ApartmentNeighborhoodViewModel> GetApartmentNeighborhoods()
-            => this.context
-                    .Neighborhoods
-                    .Select(c => new ApartmentNeighborhoodViewModel
-                    {
-                        Id = c.Id,
-                        Name = c.Name
-                    })
-                    .ToList();
+            var apartment = this.apartments.Details(id);
+
+            if (apartment.UserId != userId) //&& !User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+            return View(new ApartmentFormModel
+            {
+                ApartmentsTypes = apartment.ApartmentType,
+                CityId = apartment.ClientId,
+                NeighborhoodId = apartment.NeighborhoodId,
+                Floor = apartment.Floor,
+                Description = apartment.Description,
+                ImageUrl = apartment.ImageUrl,
+                Price = apartment.Price,
+                RentOrSell = apartment.RentOrSell
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, ApartmentFormModel apartment)
+        {
+            var clientId = this.clients.IdByUser(this.User.Id());
+
+            if (clientId == 0) //&& !User.IsAdmin())
+            {
+                return RedirectToAction(nameof(ClientsController.Become), "Clients");
+            }
+
+            if (ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (!this.apartments.IsByClient(id, clientId)) //&& !User.IsAdmin())
+            {
+                return BadRequest();
+            }
+
+            this.apartments.Edit(id, apartment.ApartmentsTypes, apartment.CityId, apartment.NeighborhoodId,
+                apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSell);
+
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }
