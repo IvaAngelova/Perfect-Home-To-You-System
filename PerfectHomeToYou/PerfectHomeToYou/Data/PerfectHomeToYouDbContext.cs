@@ -6,7 +6,7 @@ using PerfectHomeToYou.Data.Models;
 
 namespace PerfectHomeToYou.Data
 {
-    public class PerfectHomeToYouDbContext : IdentityDbContext
+    public class PerfectHomeToYouDbContext : IdentityDbContext<User>
     {
         public PerfectHomeToYouDbContext(DbContextOptions<PerfectHomeToYouDbContext> options)
             : base(options)
@@ -59,7 +59,7 @@ namespace PerfectHomeToYou.Data
 
             builder
                 .Entity<Client>()
-                .HasOne<IdentityUser>()
+                .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Client>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict);

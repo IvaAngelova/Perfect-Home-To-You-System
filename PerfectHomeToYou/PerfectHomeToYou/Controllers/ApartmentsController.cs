@@ -98,14 +98,14 @@ namespace PerfectHomeToYou.Controllers
         {
             var userId = this.User.Id();
 
-            if (!this.clients.IsClient(userId)) //&& !User.IsAdmin())
+            if (!this.clients.IsClient(userId) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(ClientsController.Become), "Clients");
             }
 
             var apartment = this.apartments.Details(id);
 
-            if (apartment.UserId != userId) //&& !User.IsAdmin())
+            if (apartment.UserId != userId && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -113,8 +113,10 @@ namespace PerfectHomeToYou.Controllers
             return View(new ApartmentFormModel
             {
                 ApartmentsTypes = apartment.ApartmentType,
-                CityId = apartment.ClientId,
+                CityId = apartment.CityId,
+                Cities = this.apartments.GetApartmentCities(),
                 NeighborhoodId = apartment.NeighborhoodId,
+                Neighborhoods = this.apartments.GetApartmentNeighborhoods(),
                 Floor = apartment.Floor,
                 Description = apartment.Description,
                 ImageUrl = apartment.ImageUrl,
@@ -129,17 +131,12 @@ namespace PerfectHomeToYou.Controllers
         {
             var clientId = this.clients.IdByUser(this.User.Id());
 
-            if (clientId == 0) //&& !User.IsAdmin())
+            if (clientId == 0 && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(ClientsController.Become), "Clients");
             }
 
-            if (ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            if (!this.apartments.IsByClient(id, clientId)) //&& !User.IsAdmin())
+            if (!this.apartments.IsByClient(id, clientId) && !User.IsAdmin())
             {
                 return BadRequest();
             }

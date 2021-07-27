@@ -59,7 +59,7 @@ namespace PerfectHomeToYou.Services.Apartments
                 {
                     Id = a.Id,
                     ApartmentType = a.ApartmentType,
-                    City = a.City.Name,
+                    CityName = a.City.Name,
                     NeighborhoodId = a.Neighborhood.Id,
                     Floor = a.Floor,
                     Description = a.Description,
@@ -79,6 +79,7 @@ namespace PerfectHomeToYou.Services.Apartments
         }
 
         public ApartmentDetailsServiceModel Details(int apartmentId)
+            
             => this.context
                    .Apartments
                    .Where(a => a.Id == apartmentId)
@@ -86,7 +87,7 @@ namespace PerfectHomeToYou.Services.Apartments
                    {
                        Id = a.Id,
                        ApartmentType = a.ApartmentType,
-                       City = a.City.Name,
+                       CityId = a.City.Id,
                        NeighborhoodId = a.Neighborhood.Id,
                        Floor = a.Floor,
                        Description = a.Description,
@@ -132,7 +133,7 @@ namespace PerfectHomeToYou.Services.Apartments
             }
 
             apartmentData.ApartmentType = apartmentsTypes;
-            apartmentData.ClientId = cityId;
+            apartmentData.CityId = cityId;
             apartmentData.NeighborhoodId = neighborhoodId;
             apartmentData.Floor = floor;
             apartmentData.Description = description;
@@ -160,7 +161,7 @@ namespace PerfectHomeToYou.Services.Apartments
             {
                 Id = a.Id,
                 ApartmentType = a.ApartmentType,
-                City = a.City.Name,
+                CityName = a.City.Name,
                 NeighborhoodId = a.NeighborhoodId,
                 Floor = a.Floor,
                 Description = a.Description,
@@ -188,7 +189,8 @@ namespace PerfectHomeToYou.Services.Apartments
                     {
                         Id = n.Id,
                         Name = n.Name,
-                        CityId = n.CityId
+                        CityId = n.CityId,
+                        CityName = n.City.Name
                     })
                     .ToList();
 

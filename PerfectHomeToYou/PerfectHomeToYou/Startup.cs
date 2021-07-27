@@ -12,6 +12,7 @@ using PerfectHomeToYou.Services.Cities;
 using PerfectHomeToYou.Services.Apartments;
 using PerfectHomeToYou.Services.Neighborhoods;
 using PerfectHomeToYou.Services.Clients;
+using PerfectHomeToYou.Data.Models;
 
 namespace PerfectHomeToYou
 {
@@ -30,13 +31,14 @@ namespace PerfectHomeToYou
             
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<User>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<PerfectHomeToYouDbContext>();
             
             services.AddControllersWithViews();

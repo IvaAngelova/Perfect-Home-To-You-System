@@ -8,7 +8,7 @@ namespace PerfectHomeToYou.Services.Apartments
 
         public ApartmentsTypes ApartmentType { get; set; }
 
-        public string City { get; init; }
+        public string CityName { get; init; }
 
         public int NeighborhoodId { get; init; }
 
