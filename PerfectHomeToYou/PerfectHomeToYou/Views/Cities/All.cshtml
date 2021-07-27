@@ -1,7 +1,7 @@
 ﻿@model AllCitiesQueryModel
 
 @{
-    ViewData["Title"] = "All Cities";
+    ViewBag.Title = "All Cities";
 }
 
 <form method="get">
@@ -23,7 +23,6 @@ else
     <div class="container">
         <div class="row">
             <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-                <h2 class="heading-margin text-center">All Cities</h2>
                 @foreach (var city in Model.Cities)
                 {
                     <div class="col-md-12">
@@ -31,6 +30,11 @@ else
                             <div class="card-body text-center">
                                 <h5 class="card-title text-center">@city.Name @city.Postcode </h5>
                                 <a asp-controller="Cities" asp-action="Details" asp-route-id="@city.Id" class="btn btn-primary">View More</a>
+                                @if (User.IsInRole(AdministratorRoleName))
+                                {
+                                    <a asp-controller="Cities" asp-action="Edit" asp-route-id="@city.Id" class="btn btn-warning">Edit</a>
+                                    <a asp-controller="Cities" asp-action="Delete" asp-route-id="@city.Id" class="btn btn-danger">Delete</a>
+                                }
                             </div>
                         </div>
                     </div>

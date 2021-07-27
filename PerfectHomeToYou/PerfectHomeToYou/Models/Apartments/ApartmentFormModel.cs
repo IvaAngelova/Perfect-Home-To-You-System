@@ -39,7 +39,7 @@ namespace PerfectHomeToYou.Models.Apartments
         public decimal Price { get; init; }
 
         [Required]
-        [EnumDataType(typeof(RentOrSell))]
-        public RentOrSell RentOrSell { get; set; }
+        [EnumDataType(typeof(RentOrSale))]
+        public RentOrSale RentOrSale { get; set; }
     }
 }

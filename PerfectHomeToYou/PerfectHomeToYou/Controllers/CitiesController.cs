@@ -4,30 +4,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
 using PerfectHomeToYou.Data;
-using PerfectHomeToYou.Data.Models;
 using PerfectHomeToYou.Models.Cities;
 using PerfectHomeToYou.Infrastructure;
 using PerfectHomeToYou.Services.Cities;
+using PerfectHomeToYou.Services.Clients;
+
+using static PerfectHomeToYou.WebConstants;
 
 namespace PerfectHomeToYou.Controllers
 {
     public class CitiesController : Controller
     {
-        private readonly ICityServices cities;
-        private readonly PerfectHomeToYouDbContext context;
+        private readonly ICityService cities;
+        private readonly IClientService clients;
 
-        public CitiesController(ICityServices cities, PerfectHomeToYouDbContext context)
+        public CitiesController(ICityService cities, IClientService clients)
         {
             this.cities = cities;
-            this.context = context;
+            this.clients = clients;
         }
 
         [Authorize]
         public IActionResult Add()
         {
-            if (!this.UserIsClient())
+            if (!this.User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction(nameof(ClientsController.Become), "Clients");
+                return BadRequest();
             }
 
             return View();
@@ -35,20 +37,14 @@ namespace PerfectHomeToYou.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddCityFormModel city)
+        public IActionResult Add(CityFormModel city)
         {
-            var clientId = this.context
-                .Clients
-                .Where(c => c.UserId == this.User.Id())
-                .Select(c => c.Id)
-                .FirstOrDefault();
-
-            if (clientId == 0)
+            if (!this.User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction(nameof(ClientsController.Become), "Clients");
+                return BadRequest();
             }
 
-            if (this.context.Cities.Any(c => c.Name == city.Name && c.Postcode == city.Postcode))
+            if (this.cities.CityExist(city.Name, city.Postcode))
             {
                 this.ModelState.AddModelError(nameof(city.Name), "City already exists");
             }
@@ -58,14 +54,7 @@ namespace PerfectHomeToYou.Controllers
                 return BadRequest();
             }
 
-            var cityData = new City
-            {
-                Name = city.Name,
-                Postcode = city.Postcode
-            };
-
-            this.context.Cities.Add(cityData);
-            this.context.SaveChanges();
+            this.cities.Create(city.Name, city.Postcode);
 
             return RedirectToAction(nameof(All));
         }
@@ -83,9 +72,35 @@ namespace PerfectHomeToYou.Controllers
             return View(query);
         }
 
-        private bool UserIsClient()
-        => this.context
-            .Clients
-            .Any(d => d.UserId == this.User.Id());
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var city = this.cities.Details(id);
+            
+            if (!User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+            return View(new CityFormModel
+            {
+                Name = city.Name,
+                Postcode = city.Postcode
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, CityFormModel city)
+        {
+            if (!User.IsAdmin())
+            {
+                return BadRequest();
+            }
+
+            this.cities.Edit(id, city.Name, city.Postcode);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

@@ -11,6 +11,8 @@ using PerfectHomeToYou.Infrastructure;
 using PerfectHomeToYou.Models.Neighborhoods;
 using PerfectHomeToYou.Services.Neighborhoods;
 
+using static PerfectHomeToYou.WebConstants;
+
 namespace PerfectHomeToYou.Controllers
 {
     public class NeighborhoodsController : Controller
@@ -27,7 +29,7 @@ namespace PerfectHomeToYou.Controllers
         [Authorize]
         public IActionResult Add()
         {
-            if (!this.UserIsClient())
+            if (!this.UserIsClient() && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(ClientsController.Become), "Clients");
             }
@@ -48,7 +50,7 @@ namespace PerfectHomeToYou.Controllers
                 .Select(c => c.Id)
                 .FirstOrDefault();
 
-            if (clientId == 0)
+            if (clientId == 0 && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(ClientsController.Become), "Clients");
             }

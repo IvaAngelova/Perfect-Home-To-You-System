@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using static PerfectHomeToYou.WebConstants; 
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,7 +29,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Apartments" asp-action="All">All Apartments</a>
                             </li>
                         }
-                        @if (User.Identity.IsAuthenticated)
+                        else if(User.Identity.IsAuthenticated || User.IsInRole(AdministratorRoleName))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -45,7 +47,10 @@
                                     Cities
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Cities" asp-action="Add">Add City</a>
+                                    @if (User.IsInRole(AdministratorRoleName))
+                                    {
+                                        <a class="dropdown-item" asp-area="" asp-controller="Cities" asp-action="Add">Add City</a>
+                                    }
                                     <a class="dropdown-item" asp-area="" asp-controller="Cities" asp-action="All">All Cities</a>
                                 </div>
                             </li>
@@ -55,7 +60,10 @@
                                     Neighborhoods
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Neighborhoods" asp-action="Add">Add Neighborhood</a>
+                                    @if (User.IsInRole(AdministratorRoleName))
+                                    {
+                                        <a class="dropdown-item" asp-area="" asp-controller="Neighborhoods" asp-action="Add">Add Neighborhood</a>
+                                    }
                                     <a class="dropdown-item" asp-area="" asp-controller="Neighborhoods" asp-action="All">All Neighborhoods</a>
                                 </div>
                             </li>

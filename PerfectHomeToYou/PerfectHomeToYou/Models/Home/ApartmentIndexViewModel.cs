@@ -12,6 +12,6 @@
 
         public decimal Price { get; set; }
 
-        public string RentOrSell { get; set; }
+        public string RentOrSale { get; set; }
     }
 }

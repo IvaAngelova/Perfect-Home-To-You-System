@@ -10,6 +10,6 @@ namespace PerfectHomeToYou.Services.Cities
 
         public int TotalCities { get; init; }
 
-        public IEnumerable<CityServicesModel> Cities { get; init; }
+        public IEnumerable<CityServiceModel> Cities { get; init; }
     }
 }

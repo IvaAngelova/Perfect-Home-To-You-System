@@ -23,7 +23,7 @@ namespace PerfectHomeToYou.Services.Apartments
                 string description,
                 string imageUrl,
                 decimal price,
-                RentOrSell rentOrSell,
+                RentOrSale rentOrSale,
                 int clientId);
 
         bool Edit(int apartmentId,
@@ -34,7 +34,7 @@ namespace PerfectHomeToYou.Services.Apartments
                 string description,
                 string imageUrl,
                 decimal price,
-                RentOrSell rentOrSell);
+                RentOrSale rentOrSale);
 
         public IEnumerable<ApartmentServiceModel> ByUser(string userId);
 

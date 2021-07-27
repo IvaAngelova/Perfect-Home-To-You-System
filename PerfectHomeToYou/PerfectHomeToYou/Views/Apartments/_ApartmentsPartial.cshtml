@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<ApartmentServiceModel>
 
-@using static PerfectHomeToYou.WebConstants;
-
 <div class="row">
     @foreach (var apartment in Model)
     {
         <div class="col-md-4">
             <div class="card md-3">
-                <img class="card-img-top" src="@apartment.ImageUrl" alt="@apartment.CityName @apartment.NeighborhoodId - @apartment.Price (@apartment.RentOrSell)">
+                <img class="card-img-top" src="@apartment.ImageUrl" alt="@apartment.CityName @apartment.NeighborhoodId - @apartment.Price (@apartment.RentOrSale)">
                 <div class="card-body text-center">
-                    <h5 class="card-title text-center">@apartment.Price @apartment.CityName @apartment.NeighborhoodId (@apartment.RentOrSell)</h5>
+                    <h5 class="card-title text-center">@apartment.Price @apartment.CityName @apartment.NeighborhoodId (@apartment.RentOrSale)</h5>
                     <a asp-controller="Apartments" asp-action="Details" asp-route-id="@apartment.Id" class="btn btn-primary">View More</a>
                     @if (ViewBag.AllowApartmentEdit == true || User.IsInRole(AdministratorRoleName))
                     {

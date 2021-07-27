@@ -27,7 +27,7 @@ namespace PerfectHomeToYou.Controllers
                     Neighborhood = c.Neighborhood.Name,
                     ImageUrl = c.ImageUrl,
                     Price = c.Price,
-                    RentOrSell = c.RentOrSell.ToString()
+                    RentOrSale = c.RentOrSale.ToString()
                 })
                 .Take(3)
                 .ToList();

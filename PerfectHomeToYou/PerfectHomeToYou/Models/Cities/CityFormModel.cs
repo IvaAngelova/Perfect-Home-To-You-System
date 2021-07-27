@@ -4,7 +4,7 @@ using static PerfectHomeToYou.Data.DataConstants.City;
 
 namespace PerfectHomeToYou.Models.Cities
 {
-    public class AddCityFormModel
+    public class CityFormModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]

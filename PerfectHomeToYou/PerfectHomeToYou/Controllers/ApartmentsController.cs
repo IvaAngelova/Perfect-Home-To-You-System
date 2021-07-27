@@ -6,6 +6,8 @@ using PerfectHomeToYou.Services.Clients;
 using PerfectHomeToYou.Models.Apartments;
 using PerfectHomeToYou.Services.Apartments;
 
+using static PerfectHomeToYou.WebConstants;
+
 namespace PerfectHomeToYou.Controllers
 {
     public class ApartmentsController : Controller
@@ -22,7 +24,7 @@ namespace PerfectHomeToYou.Controllers
         [Authorize]
         public IActionResult Add()
         {
-            if (!this.clients.IsClient(this.User.Id()))
+            if (!this.clients.IsClient(this.User.Id()) && !this.User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(ClientsController.Become), "Clients");
             }
@@ -64,7 +66,7 @@ namespace PerfectHomeToYou.Controllers
             }
 
             this.apartments.Create(apartment.ApartmentsTypes, apartment.CityId, apartment.NeighborhoodId,
-                apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSell, clientId);
+                apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSale, clientId);
 
             return RedirectToAction(nameof(All));
         }
@@ -121,7 +123,7 @@ namespace PerfectHomeToYou.Controllers
                 Description = apartment.Description,
                 ImageUrl = apartment.ImageUrl,
                 Price = apartment.Price,
-                RentOrSell = apartment.RentOrSell
+                RentOrSale = apartment.RentOrSale
             });
         }
 
@@ -142,7 +144,7 @@ namespace PerfectHomeToYou.Controllers
             }
 
             this.apartments.Edit(id, apartment.ApartmentsTypes, apartment.CityId, apartment.NeighborhoodId,
-                apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSell);
+                apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSale);
 
 
             return RedirectToAction(nameof(All));

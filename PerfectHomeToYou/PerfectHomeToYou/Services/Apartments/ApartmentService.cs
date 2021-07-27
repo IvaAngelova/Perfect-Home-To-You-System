@@ -43,9 +43,9 @@ namespace PerfectHomeToYou.Services.Apartments
                 ApartmentSorting.Floor => apartmentQuery
                                         .OrderByDescending(a => a.Floor),
                 ApartmentSorting.Rent => apartmentQuery
-                                        .OrderByDescending(a => a.RentOrSell == RentOrSell.Rent),
-                ApartmentSorting.Sell => apartmentQuery
-                                        .OrderByDescending(a => a.RentOrSell == RentOrSell.Sell),
+                                        .OrderByDescending(a => a.RentOrSale == RentOrSale.Rent),
+                ApartmentSorting.Sale => apartmentQuery
+                                        .OrderByDescending(a => a.RentOrSale == RentOrSale.Sale),
                 ApartmentSorting.DateCreated or _ => apartmentQuery
                                         .OrderByDescending(a => a.Id)
             };
@@ -65,7 +65,7 @@ namespace PerfectHomeToYou.Services.Apartments
                     Description = a.Description,
                     ImageUrl = a.ImageUrl,
                     Price = a.Price,
-                    RentOrSell = a.RentOrSell
+                    RentOrSale = a.RentOrSale
                 })
                 .ToList();
 
@@ -93,7 +93,7 @@ namespace PerfectHomeToYou.Services.Apartments
                        Description = a.Description,
                        ImageUrl = a.ImageUrl,
                        Price = a.Price,
-                       RentOrSell = a.RentOrSell,
+                       RentOrSale = a.RentOrSale,
                        ClientId = a.ClientId,
                        ClientName = a.Client.LastName,
                        UserId = a.Client.UserId
@@ -101,7 +101,7 @@ namespace PerfectHomeToYou.Services.Apartments
                    .FirstOrDefault();
 
         public int Create(ApartmentsTypes apartmentsTypes, int cityId, int neighborhoodId,
-            int floor, string description, string imageUrl, decimal price, RentOrSell rentOrSell, int clientId)
+            int floor, string description, string imageUrl, decimal price, RentOrSale rentOrSale, int clientId)
         {
             var apartmentData = new Apartment
             {
@@ -112,7 +112,7 @@ namespace PerfectHomeToYou.Services.Apartments
                 Description = description,
                 ImageUrl = imageUrl,
                 Price = price,
-                RentOrSell = rentOrSell,
+                RentOrSale = rentOrSale,
                 ClientId = clientId
             };
 
@@ -123,7 +123,7 @@ namespace PerfectHomeToYou.Services.Apartments
         }
 
         public bool Edit(int apartmentId, ApartmentsTypes apartmentsTypes, int cityId, int neighborhoodId,
-            int floor, string description, string imageUrl, decimal price, RentOrSell rentOrSell)
+            int floor, string description, string imageUrl, decimal price, RentOrSale rentOrSale)
         {
             var apartmentData = this.context.Apartments.Find(apartmentId);
 
@@ -139,7 +139,7 @@ namespace PerfectHomeToYou.Services.Apartments
             apartmentData.Description = description;
             apartmentData.ImageUrl = imageUrl;
             apartmentData.Price = price;
-            apartmentData.RentOrSell = rentOrSell;
+            apartmentData.RentOrSale = rentOrSale;
 
             this.context.SaveChanges();
 
@@ -167,7 +167,7 @@ namespace PerfectHomeToYou.Services.Apartments
                 Description = a.Description,
                 ImageUrl = a.ImageUrl,
                 Price = a.Price,
-                RentOrSell = a.RentOrSell
+                RentOrSale = a.RentOrSale
             })
             .ToList();
 

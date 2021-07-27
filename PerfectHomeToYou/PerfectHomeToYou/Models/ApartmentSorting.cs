@@ -5,6 +5,6 @@
         DateCreated = 0,
         Floor = 1,
         Rent = 2,
-        Sell = 3
+        Sale = 3
     }
 }

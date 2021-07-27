@@ -1,7 +1,7 @@
 ﻿@model AllNeighborhoodsQueryModel
 
 @{
-    ViewData["Title"] = "All Neighborhoods";
+    ViewBag.Title = "All Neighborhoods";
 }
 
 <form method="get">
@@ -23,7 +23,6 @@ else
     <div class="container">
         <div class="row">
             <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-                <h2 class="heading-margin text-center">All Neighborhoods</h2>
                 @foreach (var neighborhood in Model.Neighborhoods)
                 {
                     <div class="col-md-12">

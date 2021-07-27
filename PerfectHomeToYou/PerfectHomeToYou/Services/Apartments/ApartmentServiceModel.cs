@@ -20,6 +20,6 @@ namespace PerfectHomeToYou.Services.Apartments
 
         public decimal Price { get; set; }
 
-        public RentOrSell RentOrSell { get; set; }
+        public RentOrSale RentOrSale { get; set; }
     }
 }

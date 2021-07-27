@@ -33,7 +33,7 @@ namespace PerfectHomeToYou.Data.Models
         public decimal Price { get; set; }
 
         [Required]
-        public RentOrSell RentOrSell { get; set; }
+        public RentOrSale RentOrSale { get; set; }
 
         public int ClientId { get; set; }
         public Client Client { get; init; }

@@ -1,7 +1,7 @@
 ﻿@model IndexViewModel
 
 @{
-    ViewData["Title"] = "Welcome!";
+    ViewBag.Title = "Welcome!";
 }
 
 @{
@@ -36,27 +36,27 @@
         @if (firstApartment != null)
         {
             <div class="carousel-item active">
-                <img class="d-block w-100" src="@firstApartment.ImageUrl" alt="@firstApartment.Price @firstApartment.RentOrSell">
+                <img class="d-block w-100" src="@firstApartment.ImageUrl" alt="@firstApartment.Price @firstApartment.RentOrSale">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5><a class="btn btn-primary" asp-controller="Apartments" asp-action="Details" asp-route-id="@firstApartment.Id">@firstApartment.City  @firstApartment.Price @firstApartment.RentOrSell</a></h5>
+                    <h5><a class="btn btn-primary" asp-controller="Apartments" asp-action="Details" asp-route-id="@firstApartment.Id">@firstApartment.City  @firstApartment.Price @firstApartment.RentOrSale</a></h5>
                 </div>
             </div>
         }
         @if (secondApartment != null)
         {
             <div class="carousel-item active">
-                <img class="d-block w-100" src="@secondApartment.ImageUrl" alt="@secondApartment.Price @secondApartment.RentOrSell">
+                <img class="d-block w-100" src="@secondApartment.ImageUrl" alt="@secondApartment.Price @secondApartment.RentOrSale">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5><a class="btn btn-primary" asp-controller="Apartments" asp-action="Details" asp-route-id="@secondApartment.Id">@secondApartment.City  @secondApartment.Price @secondApartment.RentOrSell</a></h5>
+                    <h5><a class="btn btn-primary" asp-controller="Apartments" asp-action="Details" asp-route-id="@secondApartment.Id">@secondApartment.City  @secondApartment.Price @secondApartment.RentOrSale</a></h5>
                 </div>
             </div>
         }
         @if (thirdApartment != null)
         {
             <div class="carousel-item active">
-                <img class="d-block w-100" src="@thirdApartment.ImageUrl" alt="@thirdApartment.Price @thirdApartment.RentOrSell">
+                <img class="d-block w-100" src="@thirdApartment.ImageUrl" alt="@thirdApartment.Price @thirdApartment.RentOrSale">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5><a class="btn btn-primary" asp-controller="Apartments" asp-action="Details" asp-route-id="@thirdApartment.Id">@thirdApartment.City  @thirdApartment.Price @thirdApartment.RentOrSell</a></h5>
+                    <h5><a class="btn btn-primary" asp-controller="Apartments" asp-action="Details" asp-route-id="@thirdApartment.Id">@thirdApartment.City  @thirdApartment.Price @thirdApartment.RentOrSale</a></h5>
                 </div>
             </div>
         }

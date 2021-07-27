@@ -1,8 +1,8 @@
 ﻿namespace PerfectHomeToYou.Data.Models.Enumerations
 {
-    public enum RentOrSell
+    public enum RentOrSale
     {
         Rent = 1,
-        Sell = 2
+        Sale = 2
     }
 }
