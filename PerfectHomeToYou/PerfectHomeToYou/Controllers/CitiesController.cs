@@ -1,9 +1,6 @@
-﻿using System.Linq;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-using PerfectHomeToYou.Data;
 using PerfectHomeToYou.Models.Cities;
 using PerfectHomeToYou.Infrastructure;
 using PerfectHomeToYou.Services.Cities;

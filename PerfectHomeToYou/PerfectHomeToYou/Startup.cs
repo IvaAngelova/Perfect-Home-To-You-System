@@ -45,7 +45,7 @@ namespace PerfectHomeToYou
 
             services.AddTransient<IApartmentService, ApartmentService>();
             services.AddTransient<ICityService, CityService>();
-            services.AddTransient<INeighborhoodServices, NeighborhoodServices>();
+            services.AddTransient<INeighborhoodService, NeighborhoodService>();
             services.AddTransient<IClientService, ClientService>();
         }
 

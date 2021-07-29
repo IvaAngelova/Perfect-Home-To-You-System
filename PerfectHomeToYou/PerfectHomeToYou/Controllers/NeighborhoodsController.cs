@@ -1,13 +1,9 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-using PerfectHomeToYou.Data;
-using PerfectHomeToYou.Models;
-using PerfectHomeToYou.Data.Models;
 using PerfectHomeToYou.Infrastructure;
+using PerfectHomeToYou.Services.Cities;
+using PerfectHomeToYou.Services.Clients;
 using PerfectHomeToYou.Models.Neighborhoods;
 using PerfectHomeToYou.Services.Neighborhoods;
 
@@ -17,69 +13,59 @@ namespace PerfectHomeToYou.Controllers
 {
     public class NeighborhoodsController : Controller
     {
-        private readonly INeighborhoodServices neighborhoods;
-        private readonly PerfectHomeToYouDbContext context;
+        private readonly IClientService clients;
+        private readonly INeighborhoodService neighborhoods;
+        private readonly ICityService cities;
 
-        public NeighborhoodsController(INeighborhoodServices neighborhoods, PerfectHomeToYouDbContext context)
+        public NeighborhoodsController(IClientService clients, INeighborhoodService neighborhoods, 
+            ICityService cities)
         {
+            this.clients = clients;
             this.neighborhoods = neighborhoods;
-            this.context = context;
+            this.cities = cities;
         }
 
         [Authorize]
         public IActionResult Add()
         {
-            if (!this.UserIsClient() && !User.IsInRole(AdministratorRoleName))
+            if (!User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(ClientsController.Become), "Clients");
             }
 
-            return View(new AddNeighborhoodFormModel
+            return View(new NeighborhoodFormModel
             {
-                Cities = this.GetCities()
+                Cities = this.cities.GetCities()
             });
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddNeighborhoodFormModel neighborhood)
+        public IActionResult Add(NeighborhoodFormModel neighborhood)
         {
-            var clientId = this.context
-                .Clients
-                .Where(c => c.UserId == this.User.Id())
-                .Select(c => c.Id)
-                .FirstOrDefault();
-
-            if (clientId == 0 && !User.IsInRole(AdministratorRoleName))
+            if (!User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction(nameof(ClientsController.Become), "Clients");
+                return BadRequest();
             }
 
-            if (this.context.Neighborhoods.Any(n => n.Name == neighborhood.Name))
+            if (this.neighborhoods.NeighborhoodNameExist(neighborhood.Name))
             {
                 this.ModelState.AddModelError(nameof(neighborhood.Name), "Neighborhood already exists");
             }
 
-            if (this.context.Neighborhoods.Any(n => n.City.Neighborhoods.Any(n=>n.Name == neighborhood.Name)))
+            if (this.neighborhoods.NeighborhoodExistInTheCity(neighborhood.Name))
             {
                 this.ModelState.AddModelError(nameof(neighborhood), "Neighborhood already exists in the city");
             }
 
             if (!ModelState.IsValid)
             {
-                neighborhood.Cities = this.GetCities();
+                neighborhood.Cities = this.cities.GetCities();
 
                 return View(neighborhood);
             }
 
-            var neighborhoodData = new Neighborhood
-            {
-                Name = neighborhood.Name,
-                CityId = neighborhood.CityId
-            };
-
-            this.context.Neighborhoods.Add(neighborhoodData);
-            this.context.SaveChanges();
+            this.neighborhoods.Create(neighborhood.Name, neighborhood.CityId);
 
             return RedirectToAction(nameof(All));
         }
@@ -97,20 +83,36 @@ namespace PerfectHomeToYou.Controllers
             return View(query);
         }
 
-        private IEnumerable<CityViewModel> GetCities()
-            => this.context
-                    .Cities
-                    .Select(c => new CityViewModel
-                    {
-                        Id = c.Id,
-                        Name = c.Name,
-                        Postcode = c.Postcode
-                    })
-                    .ToList();
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var neighborhood = this.neighborhoods.Details(id);
 
-        private bool UserIsClient()
-            => this.context
-                .Clients
-                .Any(d => d.UserId == this.User.Id());
+            if (!User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+            return View(new NeighborhoodFormModel
+            {
+                Name = neighborhood.Name,
+                CityId = neighborhood.CityId,
+                Cities = this.cities.GetCities()
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, NeighborhoodFormModel neighborhood)
+        {
+            if (!User.IsAdmin())
+            {
+                return BadRequest();
+            }
+
+            this.neighborhoods.Edit(id, neighborhood.Name, neighborhood.CityId);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

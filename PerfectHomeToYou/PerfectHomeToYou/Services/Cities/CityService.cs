@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 
 using PerfectHomeToYou.Data;
+using PerfectHomeToYou.Models;
 using PerfectHomeToYou.Data.Models;
 
 namespace PerfectHomeToYou.Services.Cities
@@ -73,12 +75,7 @@ namespace PerfectHomeToYou.Services.Cities
 
             return cityData.Id;
         }
-
-        public bool CityExist(string name, string postcode)
-            => this.context
-                    .Cities
-                    .Any(c => c.Name == name && c.Postcode == postcode);
-
+        
         public bool Edit(int cityId, string name, string postcode)
         {
             var cityData = this.context.Cities.Find(cityId);
@@ -95,5 +92,22 @@ namespace PerfectHomeToYou.Services.Cities
 
             return true;
         }
+
+        public IEnumerable<CityViewModel> GetCities()
+
+            => this.context
+                    .Cities
+                    .Select(c => new CityViewModel
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Postcode = c.Postcode
+                    })
+                    .ToList();
+
+        public bool CityExist(string name, string postcode)
+            => this.context
+                    .Cities
+                    .Any(c => c.Name == name && c.Postcode == postcode);
     }
 }

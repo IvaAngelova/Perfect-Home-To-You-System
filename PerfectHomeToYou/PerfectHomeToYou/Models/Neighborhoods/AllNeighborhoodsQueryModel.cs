@@ -16,6 +16,6 @@ namespace PerfectHomeToYou.Models.Neighborhoods
 
         public int TotalNeighborhoods { get; set; }
 
-        public IEnumerable<NeighborhoodServicesModel> Neighborhoods { get; set; }
+        public IEnumerable<NeighborhoodServiceModel> Neighborhoods { get; set; }
     }
 }

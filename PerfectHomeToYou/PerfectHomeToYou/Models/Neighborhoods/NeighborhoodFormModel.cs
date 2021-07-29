@@ -5,7 +5,7 @@ using static PerfectHomeToYou.Data.DataConstants.Neighborhood;
 
 namespace PerfectHomeToYou.Models.Neighborhoods
 {
-    public class AddNeighborhoodFormModel
+    public class NeighborhoodFormModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
