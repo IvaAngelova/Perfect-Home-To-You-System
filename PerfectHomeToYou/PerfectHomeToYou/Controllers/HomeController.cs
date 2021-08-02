@@ -1,47 +1,41 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
+using System.Diagnostics;
+
 using Microsoft.AspNetCore.Mvc;
 
-using PerfectHomeToYou.Data;
 using PerfectHomeToYou.Models;
 using PerfectHomeToYou.Models.Home;
+using PerfectHomeToYou.Services.Apartments;
+using PerfectHomeToYou.Services.Statistics;
 
 namespace PerfectHomeToYou.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly PerfectHomeToYouDbContext context;
+        private readonly IApartmentService apartments;
+        private readonly IStatisticsService statistics;
 
-        public HomeController(PerfectHomeToYouDbContext context) 
-            => this.context = context;
+        public HomeController(IApartmentService apartments, IStatisticsService statistics)
+        {
+            this.apartments = apartments;
+            this.statistics = statistics;
+        }
 
         public IActionResult Index()
         {
-            var apartments = this.context
-                .Apartments
-                .OrderByDescending(c => c.Id)
-                .Select(c => new ApartmentIndexViewModel
-                {
-                    Id = c.Id,
-                    City = c.City.Name,
-                    Neighborhood = c.Neighborhood.Name,
-                    ImageUrl = c.ImageUrl,
-                    Price = c.Price,
-                    RentOrSale = c.RentOrSale.ToString()
-                })
-                .Take(3)
+            var latestApartments = this.apartments
+                .Latest()
                 .ToList();
 
-            var totalApartments = apartments.Count();
-            var totalUsers = this.context
-                .Users
-                .Count();
+            var totalStatistics = this.statistics.Total();
 
             return View(new IndexViewModel
             {
-                TotalApartments = totalApartments,
-                TotalUsers = totalUsers,
-                Apartments = apartments
+                TotalApartments = totalStatistics.TotalApartments,
+                TotalUsers = totalStatistics.TotalUsers,
+                TotalRents = totalStatistics.TotalRents,
+                TotalSales = totalStatistics.TotalSales,
+                Apartments = latestApartments
             });
         }
 

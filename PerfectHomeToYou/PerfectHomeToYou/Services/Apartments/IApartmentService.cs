@@ -14,6 +14,8 @@ namespace PerfectHomeToYou.Services.Apartments
            int currentPage,
            int apartmentsPerPage);
 
+        IEnumerable<LatestApartmentServiceModel> Latest();
+
         ApartmentDetailsServiceModel Details(int apartmentId);
 
         int Create(ApartmentsTypes apartmentsTypes,

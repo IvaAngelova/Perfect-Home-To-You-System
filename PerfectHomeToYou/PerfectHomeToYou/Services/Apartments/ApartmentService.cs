@@ -78,6 +78,21 @@ namespace PerfectHomeToYou.Services.Apartments
             };
         }
 
+        public IEnumerable<LatestApartmentServiceModel> Latest()
+            => this.context
+                .Apartments
+                .OrderByDescending(c => c.Id)
+                .Select(c => new LatestApartmentServiceModel
+                {
+                    Id = c.Id,
+                    City = c.City.Name,
+                    Neighborhood = c.Neighborhood.Name,
+                    ImageUrl = c.ImageUrl,
+                    Price = c.Price,
+                    RentOrSale = c.RentOrSale.ToString()
+                })
+                .Take(3)
+                .ToList();
         public ApartmentDetailsServiceModel Details(int apartmentId)
             
             => this.context

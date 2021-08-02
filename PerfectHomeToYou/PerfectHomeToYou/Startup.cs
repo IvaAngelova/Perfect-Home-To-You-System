@@ -13,6 +13,7 @@ using PerfectHomeToYou.Services.Apartments;
 using PerfectHomeToYou.Services.Neighborhoods;
 using PerfectHomeToYou.Services.Clients;
 using PerfectHomeToYou.Data.Models;
+using PerfectHomeToYou.Services.Statistics;
 
 namespace PerfectHomeToYou
 {
@@ -47,6 +48,7 @@ namespace PerfectHomeToYou
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<INeighborhoodService, NeighborhoodService>();
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IStatisticsService, StatisticsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

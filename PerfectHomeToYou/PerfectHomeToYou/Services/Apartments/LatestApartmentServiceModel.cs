@@ -1,6 +1,6 @@
-﻿namespace PerfectHomeToYou.Models.Home
+﻿namespace PerfectHomeToYou.Services.Apartments
 {
-    public class ApartmentIndexViewModel
+    public class LatestApartmentServiceModel
     {
         public int Id { get; init; }
 
