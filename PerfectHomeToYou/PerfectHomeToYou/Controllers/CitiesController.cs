@@ -53,6 +53,8 @@ namespace PerfectHomeToYou.Controllers
 
             this.cities.Create(city.Name, city.Postcode);
 
+            TempData[GlobalMessageKey] = "Successfully added city!";
+
             return RedirectToAction(nameof(All));
         }
 
@@ -97,6 +99,8 @@ namespace PerfectHomeToYou.Controllers
 
             this.cities.Edit(id, city.Name, city.Postcode);
 
+            TempData[GlobalMessageKey] = "Successfully edited city!";
+            
             return RedirectToAction(nameof(All));
         }
     }

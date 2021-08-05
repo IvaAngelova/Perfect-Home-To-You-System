@@ -68,7 +68,26 @@ namespace PerfectHomeToYou.Controllers
             this.apartments.Create(apartment.ApartmentsTypes, apartment.CityId, apartment.NeighborhoodId,
                 apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSale, clientId);
 
+            TempData[GlobalMessageKey] = "Your apartment was added!";
+
             return RedirectToAction(nameof(All));
+        }
+
+        public IActionResult Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var apartment = this.apartments.Details(id);
+
+            if (apartment == null)
+            {
+                return NotFound();
+            }
+
+            return View(apartment);
         }
 
         [Authorize]
@@ -146,6 +165,7 @@ namespace PerfectHomeToYou.Controllers
             this.apartments.Edit(id, apartment.ApartmentsTypes, apartment.CityId, apartment.NeighborhoodId,
                 apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSale);
 
+            TempData[GlobalMessageKey] = "Your apartment has been edited!";
 
             return RedirectToAction(nameof(All));
         }

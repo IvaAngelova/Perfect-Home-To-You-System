@@ -8,6 +8,8 @@ using PerfectHomeToYou.Models.Clients;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
+using static PerfectHomeToYou.WebConstants;
+
 namespace PerfectHomeToYou.Controllers
 {
     public class ClientsController : Controller
@@ -50,6 +52,8 @@ namespace PerfectHomeToYou.Controllers
 
             this.context.Clients.Add(clientData);
             this.context.SaveChanges();
+
+            TempData[GlobalMessageKey] = "Thank you for becamming a client!";
 
             return RedirectToAction("All", "Apartments");
         }

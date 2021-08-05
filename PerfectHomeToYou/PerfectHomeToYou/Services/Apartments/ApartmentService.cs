@@ -93,6 +93,7 @@ namespace PerfectHomeToYou.Services.Apartments
                 })
                 .Take(3)
                 .ToList();
+
         public ApartmentDetailsServiceModel Details(int apartmentId)
             
             => this.context
@@ -103,7 +104,9 @@ namespace PerfectHomeToYou.Services.Apartments
                        Id = a.Id,
                        ApartmentType = a.ApartmentType,
                        CityId = a.City.Id,
+                       CityName = a.City.Name,
                        NeighborhoodId = a.Neighborhood.Id,
+                       NeighborhoodName = a.Neighborhood.Name,
                        Floor = a.Floor,
                        Description = a.Description,
                        ImageUrl = a.ImageUrl,

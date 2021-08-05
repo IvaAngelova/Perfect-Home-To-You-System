@@ -67,6 +67,8 @@ namespace PerfectHomeToYou.Controllers
 
             this.neighborhoods.Create(neighborhood.Name, neighborhood.CityId);
 
+            TempData[GlobalMessageKey] = "Successfully added neighborhood!";
+
             return RedirectToAction(nameof(All));
         }
 
@@ -111,6 +113,8 @@ namespace PerfectHomeToYou.Controllers
             }
 
             this.neighborhoods.Edit(id, neighborhood.Name, neighborhood.CityId);
+
+            TempData[GlobalMessageKey] = "Successfully edited neighborhood!";
 
             return RedirectToAction(nameof(All));
         }

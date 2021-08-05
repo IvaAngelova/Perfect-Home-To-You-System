@@ -8,6 +8,8 @@
 
         public int CityId { get; set; }
 
+        public string NeighborhoodName { get; set; }
+
         public string UserId { get; init; }
     }
 }

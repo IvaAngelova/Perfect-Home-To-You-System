@@ -1,5 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ApartmentDetailsServiceModel
+
 @{
+    ViewBag.Title = "Details";
 }
+
+<h1 class="text-center">@Model.ApartmentType - @Model.CityName</h1>
+
+<div class="container bootdey">
+    <div class="col-md-12">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="form-group col-md-6">
+                    <div class="pro-img-details">
+                        <img src="@Model.ImageUrl" alt="" class="img-fluid img-thumbnail">
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <p class="text-lg-center">
+                        @Model.Description
+                    </p>
+                    <div class="product_meta">
+                        <span class="tagged_as"><strong>City:</strong> <a>@Model.CityName</a></span>
+                        <span class="tagged_as"><strong>Neighborhood:</strong> <a>@Model.NeighborhoodName</a></span>
+                        <span class="tagged_as"><strong>Floir:</strong> <a>@Model.Floor</a></span>
+                        <span class="tagged_as"><strong>Rent or Sale:</strong> <a>@Model.RentOrSale</a></span>
+                    </div>
+                    <div class="m-bot15"> <strong>Price : </strong> <span class="amount">@Model.Price <i>€</i></span></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="align-items-center">
+    <a asp-controller="Apartments" asp-action="Edit" asp-route-id="@Model.Id" class="badge badge-light">Edit</a> |
+    <a asp-controller="Apartments" asp-action="All" class="badge badge-light">Back to List</a>
+</div>

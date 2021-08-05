@@ -1,4 +1,6 @@
-﻿namespace PerfectHomeToYou.Services.Neighborhoods
+﻿using PerfectHomeToYou.Services.Neighborhoods;
+
+namespace PerfectHomeToYou.Services.Neighborhoods
 {
     public interface INeighborhoodService
     {
