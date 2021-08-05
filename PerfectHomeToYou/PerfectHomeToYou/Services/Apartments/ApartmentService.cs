@@ -23,7 +23,7 @@ namespace PerfectHomeToYou.Services.Apartments
                 .Apartments
                 .AsQueryable();
 
-            if (apartmentType != 0)
+            if (apartmentType != 0 && sorting.Equals(null))
             {
                 apartmentQuery = apartmentQuery
                     .Where(a => a.ApartmentType.Equals(apartmentType));
@@ -50,7 +50,7 @@ namespace PerfectHomeToYou.Services.Apartments
                                         .OrderByDescending(a => a.Id)
             };
 
-            var totalApartments = apartmentQuery.Count();
+           var totalApartments = apartmentQuery.Count();
 
             var apartments = apartmentQuery
                 .Skip((currentPage - 1) * apartmentsPerPage)
