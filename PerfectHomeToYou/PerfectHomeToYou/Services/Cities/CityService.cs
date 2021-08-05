@@ -58,7 +58,8 @@ namespace PerfectHomeToYou.Services.Cities
                    {
                        Id = c.Id,
                        Name = c.Name,
-                       Postcode = c.Postcode
+                       Postcode = c.Postcode,
+                       Neighborhoods = c.Neighborhoods.ToList()
                    })
                    .FirstOrDefault();
 

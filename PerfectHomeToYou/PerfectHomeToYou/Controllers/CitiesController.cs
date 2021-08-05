@@ -32,6 +32,23 @@ namespace PerfectHomeToYou.Controllers
             return View();
         }
 
+        public IActionResult Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var city = this.cities.Details(id);
+
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            return View(city);
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult Add(CityFormModel city)

@@ -33,6 +33,10 @@
 </div>
 
 <div class="align-items-center">
-    <a asp-controller="Apartments" asp-action="Edit" asp-route-id="@Model.Id" class="badge badge-light">Edit</a> |
+    @if (User.IsInRole(AdministratorRoleName))
+    {
+        <a asp-controller="Apartments" asp-action="Edit" asp-route-id="@Model.Id" class="badge badge-light">Edit</a>
+    }
+    |
     <a asp-controller="Apartments" asp-action="All" class="badge badge-light">Back to List</a>
 </div>

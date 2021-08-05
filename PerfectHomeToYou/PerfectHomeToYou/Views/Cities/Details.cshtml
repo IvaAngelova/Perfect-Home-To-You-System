@@ -1,0 +1,41 @@
+﻿@model CityDetailsServiceModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h1 class="text-center">@Model.Name</h1>
+
+<div class="container bootdey">
+    <div class="col-md-12">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="form-group col-md-12 d-flex justify-content-center">
+                    <div class="pro-img-details">
+                        <span class="tagged_as text-center"><strong>Postcode :</strong> <a>@Model.Postcode</a></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <span class="tagged_as text-center d-flex justify-content-center">
+                        <strong>Neighborhoods:</strong>
+                    </span>
+                    @foreach (var neighborhood in Model.Neighborhoods)
+                    {
+                        <div class="product_meta  d-flex justify-content-center">
+                            <a>@neighborhood.Name</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    @if (User.IsInRole(AdministratorRoleName))
+    {
+        <a asp-controller="Cities" asp-action="Edit" asp-route-id="@Model.Id" class="badge badge-light">Edit</a>
+    }
+    |
+    <a asp-controller="Cities" asp-action="All" class="badge badge-light">Back to List</a>
+</div>
