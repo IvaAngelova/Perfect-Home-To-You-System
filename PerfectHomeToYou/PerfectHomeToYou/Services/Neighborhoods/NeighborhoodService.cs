@@ -57,7 +57,8 @@ namespace PerfectHomeToYou.Services.Neighborhoods
                    {
                        Id = c.Id,
                        Name = c.Name,
-                       CityId = c.City.Id
+                       CityId = c.City.Id,
+                       CityName = c.City.Name
                    })
                    .FirstOrDefault();
 
@@ -101,6 +102,5 @@ namespace PerfectHomeToYou.Services.Neighborhoods
             => this.context
                    .Neighborhoods
                    .Any(n => n.City.Neighborhoods.Any(n => n.Name == name));
-
     }
 }

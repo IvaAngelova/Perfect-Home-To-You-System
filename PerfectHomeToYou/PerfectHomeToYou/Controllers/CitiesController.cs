@@ -32,23 +32,6 @@ namespace PerfectHomeToYou.Controllers
             return View();
         }
 
-        public IActionResult Details(int id)
-        {
-            if (id == 0)
-            {
-                return NotFound();
-            }
-
-            var city = this.cities.Details(id);
-
-            if (city == null)
-            {
-                return NotFound();
-            }
-
-            return View(city);
-        }
-
         [HttpPost]
         [Authorize]
         public IActionResult Add(CityFormModel city)
@@ -73,6 +56,23 @@ namespace PerfectHomeToYou.Controllers
             TempData[GlobalMessageKey] = "Successfully added city!";
 
             return RedirectToAction(nameof(All));
+        }
+        
+        public IActionResult Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var city = this.cities.Details(id);
+
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            return View(city);
         }
 
         public IActionResult All([FromQuery] AllCitiesQueryModel query)

@@ -72,6 +72,23 @@ namespace PerfectHomeToYou.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        public IActionResult Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var neighborhood = this.neighborhoods.Details(id);
+
+            if (neighborhood == null)
+            {
+                return NotFound();
+            }
+
+            return View(neighborhood);
+        }
+
         public IActionResult All([FromQuery] AllNeighborhoodsQueryModel query)
         {
             var queryResult = this.neighborhoods.All(

@@ -1,0 +1,33 @@
+﻿@model NeighborhoodDetailsServiceModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h1 class="text-center">@Model.Name</h1>
+
+<div class="container bootdey">
+    <div class="col-md-12">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="form-group col-md-12 d-flex justify-content-center">
+                    @*<div class="pro-img-details">
+                        <span class="tagged_as text-center"><strong>Name :</strong> <a>@Model.Name</a></span> &nbsp;
+                    </div>*@
+                    <div class="pro-img-details">
+                        <span class="tagged_as text-center"><strong>City :</strong> <a>@Model.CityName</a></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    @if (User.IsInRole(AdministratorRoleName))
+    {
+        <a asp-controller="Neighborhoods" asp-action="Edit" asp-route-id="@Model.Id" class="badge badge-light">Edit</a>
+    }
+    |
+    <a asp-controller="Neighborhoods" asp-action="All" class="badge badge-light">Back to List</a>
+</div>
