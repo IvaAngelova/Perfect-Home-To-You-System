@@ -1,9 +1,6 @@
-﻿using System.Linq;
-
-using PerfectHomeToYou.Data;
-using PerfectHomeToYou.Data.Models;
-using PerfectHomeToYou.Infrastructure;
+﻿using PerfectHomeToYou.Infrastructure;
 using PerfectHomeToYou.Models.Clients;
+using PerfectHomeToYou.Services.Clients;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -14,10 +11,10 @@ namespace PerfectHomeToYou.Controllers
 {
     public class ClientsController : Controller
     {
-        private readonly PerfectHomeToYouDbContext context;
+        private readonly IClientService clients;
 
-        public ClientsController(PerfectHomeToYouDbContext context) 
-            => this.context = context;
+        public ClientsController(IClientService clients) 
+            => this.clients = clients;
 
         [Authorize]
         public IActionResult Become() => View();
@@ -28,11 +25,10 @@ namespace PerfectHomeToYou.Controllers
         {
             var userId = this.User.Id();
 
-            var userIsAlreadyClient = this.context
-                .Clients
-                .Any(d => d.UserId == userId);
+            var userIsClient = this.clients
+                .IsClient(userId);
 
-            if (userIsAlreadyClient)
+            if (userIsClient)
             {
                 return BadRequest();
             }
@@ -42,16 +38,7 @@ namespace PerfectHomeToYou.Controllers
                 return View(client);
             }
 
-            var clientData = new Client
-            {
-                FirstName = client.FirstName,
-                LastName = client.LastName,
-                PhoneNumber = client.PhoneNumber,
-                UserId = userId
-            };
-
-            this.context.Clients.Add(clientData);
-            this.context.SaveChanges();
+            this.clients.BecomeClient(client.FirstName, client.LastName, client.PhoneNumber, userId);
 
             TempData[GlobalMessageKey] = "Thank you for becamming a client!";
 
