@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-using PerfectHomeToYou.Services.Apartments;
 using PerfectHomeToYou.Data.Models.Enumerations;
+using PerfectHomeToYou.Services.Apartments.Models;
 
 namespace PerfectHomeToYou.Models.Apartments
 {

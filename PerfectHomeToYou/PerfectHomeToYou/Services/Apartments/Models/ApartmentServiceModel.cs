@@ -1,6 +1,6 @@
 ﻿using PerfectHomeToYou.Data.Models.Enumerations;
 
-namespace PerfectHomeToYou.Services.Apartments
+namespace PerfectHomeToYou.Services.Apartments.Models
 {
     public class ApartmentServiceModel
     {

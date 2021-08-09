@@ -2,7 +2,7 @@
 
 using PerfectHomeToYou.Data.Models;
 
-namespace PerfectHomeToYou.Services.Cities
+namespace PerfectHomeToYou.Services.Cities.Models
 {
     public class CityDetailsServiceModel : CityServiceModel
     {

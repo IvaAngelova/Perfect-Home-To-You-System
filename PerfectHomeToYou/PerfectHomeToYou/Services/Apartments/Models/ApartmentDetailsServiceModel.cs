@@ -1,4 +1,4 @@
-﻿namespace PerfectHomeToYou.Services.Apartments
+﻿namespace PerfectHomeToYou.Services.Apartments.Models
 {
     public class ApartmentDetailsServiceModel : ApartmentServiceModel
     {

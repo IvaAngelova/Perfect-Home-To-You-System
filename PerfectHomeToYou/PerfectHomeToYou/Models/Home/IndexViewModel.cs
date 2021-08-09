@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using PerfectHomeToYou.Services.Apartments;
+using PerfectHomeToYou.Services.Apartments.Models;
 
 namespace PerfectHomeToYou.Models.Home
 {

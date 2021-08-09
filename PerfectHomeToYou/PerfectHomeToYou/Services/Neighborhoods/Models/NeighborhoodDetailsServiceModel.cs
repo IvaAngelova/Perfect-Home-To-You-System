@@ -2,11 +2,12 @@
 
 using PerfectHomeToYou.Data.Models;
 
-namespace PerfectHomeToYou.Services.Neighborhoods
+namespace PerfectHomeToYou.Services.Neighborhoods.Models
 {
     public class NeighborhoodDetailsServiceModel : NeighborhoodServiceModel
     {
-        public string CityName { get; set; }
+        public new string CityName { get; set; }
+
         public IEnumerable<Apartment> Apartments { get; set; }
     }
 }

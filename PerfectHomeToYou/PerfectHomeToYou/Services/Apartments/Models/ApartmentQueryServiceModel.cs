@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PerfectHomeToYou.Services.Apartments
+namespace PerfectHomeToYou.Services.Apartments.Models
 {
     public class ApartmentQueryServiceModel
     {

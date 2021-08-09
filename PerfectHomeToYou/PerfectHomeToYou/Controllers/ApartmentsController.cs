@@ -90,6 +90,23 @@ namespace PerfectHomeToYou.Controllers
             return View(apartment);
         }
 
+        public IActionResult Delete(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var apartment = this.apartments.Delete(id);
+
+            if (!apartment)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
         [Authorize]
         public IActionResult Mine()
         {

@@ -2,6 +2,7 @@
 
 using PerfectHomeToYou.Data;
 using PerfectHomeToYou.Data.Models;
+using PerfectHomeToYou.Services.Neighborhoods.Models;
 
 namespace PerfectHomeToYou.Services.Neighborhoods
 {

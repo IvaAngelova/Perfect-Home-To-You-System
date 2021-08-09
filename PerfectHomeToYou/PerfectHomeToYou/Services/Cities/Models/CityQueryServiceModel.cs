@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PerfectHomeToYou.Services.Cities
+namespace PerfectHomeToYou.Services.Cities.Models
 {
     public class CityQueryServiceModel
     {

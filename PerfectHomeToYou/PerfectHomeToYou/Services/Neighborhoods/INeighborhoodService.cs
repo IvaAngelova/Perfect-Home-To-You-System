@@ -1,4 +1,4 @@
-﻿using PerfectHomeToYou.Services.Neighborhoods;
+﻿using PerfectHomeToYou.Services.Neighborhoods.Models;
 
 namespace PerfectHomeToYou.Services.Neighborhoods
 {

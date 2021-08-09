@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-using PerfectHomeToYou.Services.Neighborhoods;
+using PerfectHomeToYou.Services.Neighborhoods.Models;
 
 namespace PerfectHomeToYou.Models.Neighborhoods
 {

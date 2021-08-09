@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 using PerfectHomeToYou.Models;
 
-namespace PerfectHomeToYou.Services.Neighborhoods
+namespace PerfectHomeToYou.Services.Neighborhoods.Models
 {
     public class NeighborhoodServiceModel
     {

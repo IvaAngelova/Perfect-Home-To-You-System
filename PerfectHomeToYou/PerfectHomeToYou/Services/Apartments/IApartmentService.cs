@@ -3,6 +3,7 @@
 using PerfectHomeToYou.Models;
 using PerfectHomeToYou.Models.Apartments;
 using PerfectHomeToYou.Data.Models.Enumerations;
+using PerfectHomeToYou.Services.Apartments.Models;
 
 namespace PerfectHomeToYou.Services.Apartments
 {
@@ -37,6 +38,8 @@ namespace PerfectHomeToYou.Services.Apartments
                 string imageUrl,
                 decimal price,
                 RentOrSale rentOrSale);
+        
+        bool Delete(int apartmentId);
 
         public IEnumerable<ApartmentServiceModel> ByUser(string userId);
 

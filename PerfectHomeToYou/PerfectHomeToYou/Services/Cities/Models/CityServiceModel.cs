@@ -1,4 +1,4 @@
-﻿namespace PerfectHomeToYou.Services.Cities
+﻿namespace PerfectHomeToYou.Services.Cities.Models
 {
     public class CityServiceModel
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using PerfectHomeToYou.Models;
-using PerfectHomeToYou.Services.Cities;
+using PerfectHomeToYou.Services.Cities.Models;
 
 namespace PerfectHomeToYou.Services.Cities
 {

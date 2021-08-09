@@ -6,6 +6,7 @@ using PerfectHomeToYou.Models;
 using PerfectHomeToYou.Data.Models;
 using PerfectHomeToYou.Models.Apartments;
 using PerfectHomeToYou.Data.Models.Enumerations;
+using PerfectHomeToYou.Services.Apartments.Models;
 
 namespace PerfectHomeToYou.Services.Apartments
 {
@@ -160,6 +161,20 @@ namespace PerfectHomeToYou.Services.Apartments
             apartmentData.RentOrSale = rentOrSale;
 
             this.context.SaveChanges();
+
+            return true;
+        }
+
+        public bool Delete(int apartmentId)
+        {
+            var apartmentData = this.context.Apartments.Find(apartmentId);
+
+            if (apartmentData == null)
+            {
+                return false;
+            }
+
+            this.context.Remove(apartmentData);
 
             return true;
         }
