@@ -33,7 +33,7 @@
 </div>
 
 <div class="align-items-center">
-    @if (User.IsInRole(AdministratorRoleName))
+    @if (User.IsInRole(AdminConstants.AdministratorRoleName))
     {
         <a asp-controller="Apartments" asp-action="Edit" asp-route-id="@Model.Id" class="badge badge-light">Edit</a>
     }

@@ -7,15 +7,16 @@ using PerfectHomeToYou.Services.Clients;
 using PerfectHomeToYou.Models.Neighborhoods;
 using PerfectHomeToYou.Services.Neighborhoods;
 
+using static PerfectHomeToYou.Areas.Admin.AdminConstants;
 using static PerfectHomeToYou.WebConstants;
 
 namespace PerfectHomeToYou.Controllers
 {
     public class NeighborhoodsController : Controller
     {
+        private readonly ICityService cities;
         private readonly IClientService clients;
         private readonly INeighborhoodService neighborhoods;
-        private readonly ICityService cities;
 
         public NeighborhoodsController(IClientService clients, INeighborhoodService neighborhoods, 
             ICityService cities)

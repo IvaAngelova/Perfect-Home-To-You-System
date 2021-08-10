@@ -29,14 +29,7 @@ namespace PerfectHomeToYou.Controllers
 
             var totalStatistics = this.statistics.Total();
 
-            return View(new IndexViewModel
-            {
-                TotalApartments = totalStatistics.TotalApartments,
-                TotalUsers = totalStatistics.TotalUsers,
-                TotalRents = totalStatistics.TotalRents,
-                TotalSales = totalStatistics.TotalSales,
-                Apartments = latestApartments
-            });
+            return View(latestApartments);
         }
 
         public IActionResult Privacy()

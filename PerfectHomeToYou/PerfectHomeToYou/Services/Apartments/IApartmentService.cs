@@ -9,11 +9,12 @@ namespace PerfectHomeToYou.Services.Apartments
 {
     public interface IApartmentService
     {
-        ApartmentQueryServiceModel All(ApartmentsTypes apartmentType,
-           string searchTerm,
-           ApartmentSorting sorting,
-           int currentPage,
-           int apartmentsPerPage);
+        ApartmentQueryServiceModel All(ApartmentsTypes apartmentType = ApartmentsTypes.OneBedroom,
+           string searchTerm = null,
+           ApartmentSorting sorting=ApartmentSorting.DateCreated,
+           int currentPage = 1,
+           int apartmentsPerPage = int.MaxValue,
+           bool publicOnly = true);
 
         IEnumerable<LatestApartmentServiceModel> Latest();
 
@@ -37,7 +38,8 @@ namespace PerfectHomeToYou.Services.Apartments
                 string description,
                 string imageUrl,
                 decimal price,
-                RentOrSale rentOrSale);
+                RentOrSale rentOrSale,
+                bool isPublic);
         
         bool Delete(int apartmentId);
 
@@ -52,5 +54,7 @@ namespace PerfectHomeToYou.Services.Apartments
         IEnumerable<CityViewModel> GetApartmentCities();
 
         IEnumerable<ApartmentNeighborhoodModel> GetApartmentNeighborhoods();
+
+        public void ChangeVisibility(int apartmentId);
     }
 }

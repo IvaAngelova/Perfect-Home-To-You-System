@@ -1,12 +1,16 @@
-﻿namespace PerfectHomeToYou.Services.Apartments.Models
+﻿using PerfectHomeToYou.Data.Models.Enumerations;
+
+namespace PerfectHomeToYou.Services.Apartments.Models
 {
-    public class LatestApartmentServiceModel
+    public class LatestApartmentServiceModel : IApartmentModel
     {
         public int Id { get; init; }
 
-        public string City { get; init; }
+        public ApartmentsTypes ApartmentType { get; set; }
+        
+        public string CityName { get; init; }
 
-        public string Neighborhood { get; init; }
+        public string NeighborhoodName { get; init; }
 
         public string ImageUrl { get; set; }
 

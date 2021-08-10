@@ -2,20 +2,26 @@
 using System.ComponentModel.DataAnnotations;
 
 using PerfectHomeToYou.Data.Models.Enumerations;
+using PerfectHomeToYou.Services.Apartments.Models;
 
 using static PerfectHomeToYou.Data.DataConstants.Apartment;
 
 namespace PerfectHomeToYou.Models.Apartments
 {
-    public class ApartmentFormModel
+    public class ApartmentFormModel : IApartmentModel
     {
         [Required]
         [EnumDataType(typeof(ApartmentsTypes))]
-        public ApartmentsTypes ApartmentsTypes { get; set; }
+        public ApartmentsTypes ApartmentType { get; set; }
 
         [Display(Name = "City")]
         public int CityId { get; init; }
+
+        public string CityName { get; init; }
+
         public IEnumerable<CityViewModel> Cities { get; set; }
+
+        public string NeighborhoodName { get; init; }
 
         [Display(Name = "Neighborhood")]
         public int NeighborhoodId { get; init; }

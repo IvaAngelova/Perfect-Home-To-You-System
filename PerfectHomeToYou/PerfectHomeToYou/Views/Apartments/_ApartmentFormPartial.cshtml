@@ -6,12 +6,12 @@
             <h2 class="heading-margin text-center">Add Apartment</h2>
             <form method="post">
                 <div class="form-group">
-                    <label asp-for="ApartmentsTypes">Apartments Types</label>
-                    <select asp-for="ApartmentsTypes" class="form-control" asp-items="Html.GetEnumSelectList<ApartmentsTypes>().OrderBy(x => x.Value)"
+                    <label asp-for="ApartmentType">Apartments Types</label>
+                    <select asp-for="ApartmentType" class="form-control" asp-items="Html.GetEnumSelectList<ApartmentsTypes>().OrderBy(x => x.Value)"
                             placeholder="Apartment Type...">
                         <option value="">-- Select Apartment Type --</option>
                     </select>
-                    <span asp-validation-for="ApartmentsTypes" class="text-danger"></span>
+                    <span asp-validation-for="ApartmentType" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CityId"></label>

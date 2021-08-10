@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ApartmentServiceModel>
+
+@{
+    ViewBag.Title = "Аdministrator approval";
+}
+
+<h1>All cars</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">ApartmentType</th>
+            <th scope="col">CityName</th>
+            <th scope="col">NeighborhoodName</th>
+            <th scope="col">RentOrSale</th>
+            <th scope="col">Approved</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var apartment in Model)
+        {
+            <tr>
+                <td scope="col">@apartment.Id</td>
+                <td scope="col">@apartment.ApartmentType</td>
+                <td scope="col">@apartment.CityName</td>
+                <td scope="col">@apartment.NeighborhoodName</td>
+                <td scope="col">@apartment.RentOrSale</td>
+                <td scope="col">@(apartment.IsPublic ? "Yes" : "No")</td>
+                <td scope="col">
+                    <a asp-area="" asp-controller="Apartments" asp-action="Delete" asp-route-id="@apartment.Id" class="btn btn-danger ml-3">Delete</a>
+                    <a asp-area="" asp-controller="Apartments" asp-action="Edit" asp-route-id="@apartment.Id" class="btn btn-warning ml-3">Edit</a>
+                    <a asp-area="Admin" asp-controller="Apartments" asp-action="ChangeVisibility" asp-route-id="@apartment.Id" class="btn btn-info ml-3">@(apartment.IsPublic ? "Hide" : "Show")</a>
+                    <a asp-area="" asp-controller="Apartments" asp-action="Details" asp-route-id="@apartment.Id" asp-route-information="@apartment.GetInformation()" class="btn btn-primary ml-3">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

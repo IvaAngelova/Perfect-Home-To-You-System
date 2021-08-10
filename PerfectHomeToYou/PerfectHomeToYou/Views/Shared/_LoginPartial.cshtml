@@ -3,7 +3,6 @@
 @using PerfectHomeToYou.Data.Models
 @using PerfectHomeToYou.Infrastructure
 @using PerfectHomeToYou.Services.Clients
-@using static PerfectHomeToYou.WebConstants;
 
 @inject UserManager<User> UserManager
 @inject SignInManager<User> SignInManager
@@ -14,7 +13,7 @@
     {
         var userId = User.Id();
         var userIsDealer = Clients.IsClient(userId);
-        var userIsAdmin = User.IsInRole(AdministratorRoleName);
+        var userIsAdmin = User.IsInRole(AdminConstants.AdministratorRoleName);
 
         @if (userIsDealer && !userIsAdmin)
         {
@@ -26,6 +25,12 @@
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Become">Become Client</a>
+            </li>
+        }
+        else if (userIsAdmin)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Apartments" asp-action="All">Administration</a>
             </li>
         }
         <li class="nav-item">

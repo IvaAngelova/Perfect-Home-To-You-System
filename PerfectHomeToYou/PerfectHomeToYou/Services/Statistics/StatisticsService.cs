@@ -16,6 +16,7 @@ namespace PerfectHomeToYou.Services.Statistics
         {
             var totalApartments = this.context
                    .Apartments
+                   .Where(a=>a.IsPublic)
                    .Count();
 
             var totalUsers = this.context
@@ -24,11 +25,13 @@ namespace PerfectHomeToYou.Services.Statistics
 
             var totalRents = this.context
                 .Apartments
+                .Where(a => a.IsPublic)
                 .Where(a => a.RentOrSale == RentOrSale.Rent)
                 .Count();
 
             var totalSales = this.context
                 .Apartments
+                .Where(a => a.IsPublic)
                 .Where(a => a.RentOrSale == RentOrSale.Sale)
                 .Count();
 

@@ -24,7 +24,7 @@
 </div>
 
 <div class="d-flex justify-content-center">
-    @if (User.IsInRole(AdministratorRoleName))
+    @if (User.IsInRole(AdminConstants.AdministratorRoleName))
     {
         <a asp-controller="Neighborhoods" asp-action="Edit" asp-route-id="@Model.Id" class="badge badge-light">Edit</a>
     }

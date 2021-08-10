@@ -8,8 +8,8 @@
                 <img class="card-img-top" src="@apartment.ImageUrl" alt="@apartment.CityName @apartment.NeighborhoodId - @apartment.Price (@apartment.RentOrSale)">
                 <div class="card-body text-center">
                     <h5 class="card-title text-center">@apartment.Price<i>€</i> @apartment.CityName @apartment.NeighborhoodId (@apartment.RentOrSale)</h5>
-                    <a asp-controller="Apartments" asp-action="Details" asp-route-id="@apartment.Id" class="btn btn-primary">View More</a>
-                    @if (ViewBag.AllowApartmentEdit == true || User.IsInRole(AdministratorRoleName))
+                    <a asp-controller="Apartments" asp-action="Details" asp-route-id="@apartment.Id" asp-route-information="@apartment.GetInformation()" class="btn btn-primary">View More</a>
+                    @if (ViewBag.AllowApartmentEdit == true || User.IsInRole(AdminConstants.AdministratorRoleName))
                     {
                         <a asp-controller="Apartments" asp-action="Edit" asp-route-id="@apartment.Id" class="btn btn-warning">Edit</a>
                         <a asp-controller="Apartments" asp-action="Delete" asp-route-id="@apartment.Id" class="btn btn-danger">Delete</a>

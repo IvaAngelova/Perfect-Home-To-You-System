@@ -29,7 +29,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Apartments" asp-action="All">All Apartments</a>
                             </li>
                         }
-                        else if(User.Identity.IsAuthenticated || User.IsInRole(AdministratorRoleName))
+                        else if(User.Identity.IsAuthenticated || User.IsInRole(AdminConstants.AdministratorRoleName))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -47,7 +47,7 @@
                                     Cities
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    @if (User.IsInRole(AdministratorRoleName))
+                                    @if (User.IsInRole(AdminConstants.AdministratorRoleName))
                                     {
                                         <a class="dropdown-item" asp-area="" asp-controller="Cities" asp-action="Add">Add City</a>
                                     }
@@ -60,7 +60,7 @@
                                     Neighborhoods
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    @if (User.IsInRole(AdministratorRoleName))
+                                    @if (User.IsInRole(AdminConstants.AdministratorRoleName))
                                     {
                                         <a class="dropdown-item" asp-area="" asp-controller="Neighborhoods" asp-action="Add">Add Neighborhood</a>
                                     }

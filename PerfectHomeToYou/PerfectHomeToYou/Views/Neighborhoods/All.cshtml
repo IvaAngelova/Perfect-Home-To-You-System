@@ -30,7 +30,7 @@ else
                             <div class="card-body text-center">
                                 <h5 class="card-title text-center">@neighborhood.Name (@neighborhood.CityName) </h5>
                                 <a asp-controller="Neighborhoods" asp-action="Details" asp-route-id="@neighborhood.Id" class="btn btn-primary">View More</a>
-                                @if (User.IsInRole(AdministratorRoleName))
+                                @if (User.IsInRole(AdminConstants.AdministratorRoleName))
                                 {
                                     <a asp-controller="Neighborhoods" asp-action="Edit" asp-route-id="@neighborhood.Id" class="btn btn-warning">Edit</a>
                                     <a asp-controller="Neighborhoods" asp-action="Delete" asp-route-id="@neighborhood.Id" class="btn btn-danger">Delete</a>

@@ -17,12 +17,13 @@ namespace PerfectHomeToYou.Services.Apartments
         public ApartmentService(PerfectHomeToYouDbContext context)
             => this.context = context;
 
-        public ApartmentQueryServiceModel All(ApartmentsTypes apartmentType, string searchTerm,
-            ApartmentSorting sorting, int currentPage, int apartmentsPerPage)
+        public ApartmentQueryServiceModel All(ApartmentsTypes apartmentType = ApartmentsTypes.OneBedroom, string searchTerm = null,
+           ApartmentSorting sorting = ApartmentSorting.DateCreated, int currentPage = 1,
+           int apartmentsPerPage = int.MaxValue, bool publicOnly = true)
         {
             var apartmentQuery = this.context
                 .Apartments
-                .AsQueryable();
+                .Where(a => !publicOnly || a.IsPublic);
 
             if (apartmentType != 0 && sorting.Equals(null))
             {
@@ -51,7 +52,7 @@ namespace PerfectHomeToYou.Services.Apartments
                                         .OrderByDescending(a => a.Id)
             };
 
-           var totalApartments = apartmentQuery.Count();
+            var totalApartments = apartmentQuery.Count();
 
             var apartments = apartmentQuery
                 .Skip((currentPage - 1) * apartmentsPerPage)
@@ -66,7 +67,8 @@ namespace PerfectHomeToYou.Services.Apartments
                     Description = a.Description,
                     ImageUrl = a.ImageUrl,
                     Price = a.Price,
-                    RentOrSale = a.RentOrSale
+                    RentOrSale = a.RentOrSale,
+                    IsPublic = a.IsPublic
                 })
                 .ToList();
 
@@ -82,12 +84,14 @@ namespace PerfectHomeToYou.Services.Apartments
         public IEnumerable<LatestApartmentServiceModel> Latest()
             => this.context
                 .Apartments
+                .Where(a => a.IsPublic)
                 .OrderByDescending(c => c.Id)
                 .Select(c => new LatestApartmentServiceModel
                 {
                     Id = c.Id,
-                    City = c.City.Name,
-                    Neighborhood = c.Neighborhood.Name,
+                    ApartmentType = c.ApartmentType,
+                    CityName = c.City.Name,
+                    NeighborhoodName = c.Neighborhood.Name,
                     ImageUrl = c.ImageUrl,
                     Price = c.Price,
                     RentOrSale = c.RentOrSale.ToString()
@@ -96,7 +100,7 @@ namespace PerfectHomeToYou.Services.Apartments
                 .ToList();
 
         public ApartmentDetailsServiceModel Details(int apartmentId)
-            
+
             => this.context
                    .Apartments
                    .Where(a => a.Id == apartmentId)
@@ -132,7 +136,8 @@ namespace PerfectHomeToYou.Services.Apartments
                 ImageUrl = imageUrl,
                 Price = price,
                 RentOrSale = rentOrSale,
-                ClientId = clientId
+                ClientId = clientId,
+                IsPublic = false
             };
 
             this.context.Apartments.Add(apartmentData);
@@ -142,7 +147,7 @@ namespace PerfectHomeToYou.Services.Apartments
         }
 
         public bool Edit(int apartmentId, ApartmentsTypes apartmentsTypes, int cityId, int neighborhoodId,
-            int floor, string description, string imageUrl, decimal price, RentOrSale rentOrSale)
+            int floor, string description, string imageUrl, decimal price, RentOrSale rentOrSale, bool isPublic)
         {
             var apartmentData = this.context.Apartments.Find(apartmentId);
 
@@ -159,6 +164,7 @@ namespace PerfectHomeToYou.Services.Apartments
             apartmentData.ImageUrl = imageUrl;
             apartmentData.Price = price;
             apartmentData.RentOrSale = rentOrSale;
+            apartmentData.IsPublic = isPublic;
 
             this.context.SaveChanges();
 
@@ -236,5 +242,14 @@ namespace PerfectHomeToYou.Services.Apartments
             => this.context
             .Neighborhoods
             .Any(c => c.Id == neighborhoodId);
+
+        public void ChangeVisibility(int apartmentId)
+        {
+            var apartment = this.context.Apartments.Find(apartmentId);
+
+            apartment.IsPublic = !apartment.IsPublic;
+
+            this.context.SaveChanges();
+        }
     }
 }

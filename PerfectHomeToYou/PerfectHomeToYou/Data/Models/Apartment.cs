@@ -35,6 +35,8 @@ namespace PerfectHomeToYou.Data.Models
         [Required]
         public RentOrSale RentOrSale { get; set; }
 
+        public bool IsPublic { get; set; }
+
         public int ClientId { get; set; }
         public Client Client { get; init; }
     }

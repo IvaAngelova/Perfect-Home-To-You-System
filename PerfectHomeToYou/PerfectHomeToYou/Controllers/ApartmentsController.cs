@@ -6,6 +6,8 @@ using PerfectHomeToYou.Services.Clients;
 using PerfectHomeToYou.Models.Apartments;
 using PerfectHomeToYou.Services.Apartments;
 
+
+using static PerfectHomeToYou.Areas.Admin.AdminConstants;
 using static PerfectHomeToYou.WebConstants;
 
 namespace PerfectHomeToYou.Controllers
@@ -65,15 +67,15 @@ namespace PerfectHomeToYou.Controllers
                 return View(apartment);
             }
 
-            this.apartments.Create(apartment.ApartmentsTypes, apartment.CityId, apartment.NeighborhoodId,
+            var apartmentId = this.apartments.Create(apartment.ApartmentType, apartment.CityId, apartment.NeighborhoodId,
                 apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSale, clientId);
 
-            TempData[GlobalMessageKey] = "Your apartment was added!";
+            TempData[GlobalMessageKey] = "Your apartment was added and it is awaiting for approval!";
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(Details), new { id = apartmentId, information = apartment.GetInformation() });
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int id, string information)
         {
             if (id == 0)
             {
@@ -85,6 +87,11 @@ namespace PerfectHomeToYou.Controllers
             if (apartment == null)
             {
                 return NotFound();
+            }
+
+            if (information != apartment.GetInformation())
+            {
+                return BadRequest();
             }
 
             return View(apartment);
@@ -150,7 +157,7 @@ namespace PerfectHomeToYou.Controllers
 
             return View(new ApartmentFormModel
             {
-                ApartmentsTypes = apartment.ApartmentType,
+                ApartmentType = apartment.ApartmentType,
                 CityId = apartment.CityId,
                 Cities = this.apartments.GetApartmentCities(),
                 NeighborhoodId = apartment.NeighborhoodId,
@@ -179,12 +186,12 @@ namespace PerfectHomeToYou.Controllers
                 return BadRequest();
             }
 
-            this.apartments.Edit(id, apartment.ApartmentsTypes, apartment.CityId, apartment.NeighborhoodId,
-                apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSale);
+            this.apartments.Edit(id, apartment.ApartmentType, apartment.CityId, apartment.NeighborhoodId,
+                apartment.Floor, apartment.Description, apartment.ImageUrl, apartment.Price, apartment.RentOrSale, this.User.IsAdmin());
 
-            TempData[GlobalMessageKey] = "Your apartment has been edited!";
+            TempData[GlobalMessageKey] = $"Your car was edited{(this.User.IsAdmin() ? string.Empty : "and it is awaiting for approval")!}";
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(Details), new { id, information = apartment.GetInformation() });
         }
     }
 }

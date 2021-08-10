@@ -76,9 +76,14 @@ namespace PerfectHomeToYou
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapDefaultAreaRoute();
+
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    name: "Apartment Details",
+                    pattern: "/Apartments/Details/{id}/{information}",
+                    defaults: new { controller = "Apartments", action = "Details" });
+
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
             });
         }

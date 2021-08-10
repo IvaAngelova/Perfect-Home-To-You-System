@@ -2,15 +2,17 @@
 
 namespace PerfectHomeToYou.Services.Apartments.Models
 {
-    public class ApartmentServiceModel
+    public class ApartmentServiceModel : IApartmentModel
     {
         public int Id { get; init; }
 
         public ApartmentsTypes ApartmentType { get; set; }
 
         public string CityName { get; init; }
-
+        
         public int NeighborhoodId { get; init; }
+        
+        public string NeighborhoodName { get; init; }
 
         public int Floor { get; set; }
 
@@ -21,5 +23,8 @@ namespace PerfectHomeToYou.Services.Apartments.Models
         public decimal Price { get; set; }
 
         public RentOrSale RentOrSale { get; set; }
+
+        public bool IsPublic { get; init; }
+        
     }
 }
