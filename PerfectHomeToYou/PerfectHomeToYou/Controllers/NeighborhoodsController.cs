@@ -136,5 +136,22 @@ namespace PerfectHomeToYou.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        public IActionResult Delete(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var neighborhood = this.neighborhoods.Delete(id);
+
+            if (!neighborhood)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

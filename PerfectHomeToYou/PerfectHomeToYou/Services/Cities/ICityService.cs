@@ -17,6 +17,8 @@ namespace PerfectHomeToYou.Services.Cities
         
         bool Edit(int cityId,string name, string postcode);
 
+        bool Delete(int cityId);
+
         public IEnumerable<CityViewModel> GetCities();
 
         public bool CityExist(string name, string postcode);

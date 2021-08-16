@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QuestionDetailsServiceModel>
+
+@{
+    ViewBag.Title = "My Questions";
+}
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">You do not have any questions yet!</h2>
+}
+else
+{
+    <h1>All Questions</h1>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">ApartmentType</th>
+                <th scope="col">CityName</th>
+                <th scope="col">NeighborhoodName</th>
+                <th scope="col">RentOrSale</th>
+                <th scope="col">Message</th>
+                <th scope="col">DateOfCreation</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var question in Model)
+            {
+                <tr>
+                    <td scope="col">@question.Id</td>
+                    <td scope="col">@question.ApartmentType</td>
+                    <td scope="col">@question.CityName</td>
+                    <td scope="col">@question.NeighborhoodName</td>
+                    <td scope="col">@question.RentOrSale</td>
+                    <td scope="col">@(question.Message)</td>
+                    <td scope="col">@(question.DateOfCreation)</td>
+                    <td scope="col">
+                        <a asp-area="" asp-controller="Questions" asp-action="Delete" asp-route-id="@question.Id" class="btn btn-danger ml-3">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

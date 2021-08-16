@@ -43,7 +43,7 @@ namespace PerfectHomeToYou.Services.Apartments
         
         bool Delete(int apartmentId);
 
-        public IEnumerable<ApartmentServiceModel> ByUser(string userId);
+        IEnumerable<ApartmentServiceModel> ByUser(string userId);
 
         bool IsByClient(int apartmentId, int clientId);
 

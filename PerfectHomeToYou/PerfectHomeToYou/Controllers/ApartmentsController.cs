@@ -4,17 +4,19 @@ using Microsoft.AspNetCore.Authorization;
 using PerfectHomeToYou.Infrastructure;
 using PerfectHomeToYou.Services.Clients;
 using PerfectHomeToYou.Models.Apartments;
+using PerfectHomeToYou.Services.Questions;
 using PerfectHomeToYou.Services.Apartments;
 
 
-using static PerfectHomeToYou.Areas.Admin.AdminConstants;
 using static PerfectHomeToYou.WebConstants;
+using static PerfectHomeToYou.Areas.Admin.AdminConstants;
 
 namespace PerfectHomeToYou.Controllers
 {
     public class ApartmentsController : Controller
     {
         private readonly IClientService clients;
+        private readonly IQuestionService questions;
         private readonly IApartmentService apartments;
 
         public ApartmentsController(IClientService clients, IApartmentService apartments)

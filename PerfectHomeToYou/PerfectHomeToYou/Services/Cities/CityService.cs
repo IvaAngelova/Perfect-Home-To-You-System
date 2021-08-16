@@ -95,6 +95,21 @@ namespace PerfectHomeToYou.Services.Cities
             return true;
         }
 
+        public bool Delete(int cityId)
+        {
+            var cityData = this.context.Cities.Find(cityId);
+
+            if (cityData == null)
+            {
+                return false;
+            }
+
+            this.context.Cities.Remove(cityData);
+            this.context.SaveChanges();
+
+            return true;
+        }
+
         public IEnumerable<CityViewModel> GetCities()
 
             => this.context

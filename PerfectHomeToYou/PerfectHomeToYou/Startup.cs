@@ -14,6 +14,7 @@ using PerfectHomeToYou.Services.Neighborhoods;
 using PerfectHomeToYou.Services.Clients;
 using PerfectHomeToYou.Data.Models;
 using PerfectHomeToYou.Services.Statistics;
+using PerfectHomeToYou.Services.Questions;
 
 namespace PerfectHomeToYou
 {
@@ -48,6 +49,7 @@ namespace PerfectHomeToYou
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<INeighborhoodService, NeighborhoodService>();
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<IStatisticsService, StatisticsService>();
         }
 

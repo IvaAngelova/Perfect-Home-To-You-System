@@ -1,0 +1,17 @@
+﻿@model QuestionFormModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+            <h2 class="heading-margin text-center">Add Question</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Message"></label>
+                    <input asp-for="Message" class="form-control" placeholder="Please enter your question.">
+                    <span asp-validation-for="Message" class="small text-danger"></span>
+                </div>
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </form>
+        </div>
+    </div>
+</div>

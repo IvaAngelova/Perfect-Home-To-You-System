@@ -180,7 +180,8 @@ namespace PerfectHomeToYou.Services.Apartments
                 return false;
             }
 
-            this.context.Remove(apartmentData);
+            this.context.Apartments.Remove(apartmentData);
+            this.context.SaveChanges();
 
             return true;
         }

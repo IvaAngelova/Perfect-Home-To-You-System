@@ -14,6 +14,8 @@ namespace PerfectHomeToYou.Services.Neighborhoods
 
         bool Edit(int neighborhoodId, string name, int cityId);
 
+        bool Delete(int neighborhoodId);
+
         public bool NeighborhoodNameExist(string name);
 
         public bool NeighborhoodExistInTheCity(string name);

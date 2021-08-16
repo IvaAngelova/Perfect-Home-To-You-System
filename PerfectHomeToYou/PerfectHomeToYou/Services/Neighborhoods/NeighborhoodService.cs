@@ -94,6 +94,21 @@ namespace PerfectHomeToYou.Services.Neighborhoods
             return true;
         }
 
+        public bool Delete(int neighborhoodId)
+        {
+            var neighborhoodData = this.context.Neighborhoods.Find(neighborhoodId);
+
+            if (neighborhoodData == null)
+            {
+                return false;
+            }
+
+            this.context.Neighborhoods.Remove(neighborhoodData);
+            this.context.SaveChanges();
+
+            return true;
+        }
+
         public bool NeighborhoodNameExist(string name)
             => this.context
                    .Neighborhoods

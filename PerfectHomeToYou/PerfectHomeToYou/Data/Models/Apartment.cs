@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 using PerfectHomeToYou.Data.Models.Enumerations;
 
@@ -39,5 +40,8 @@ namespace PerfectHomeToYou.Data.Models
 
         public int ClientId { get; set; }
         public Client Client { get; init; }
+
+        public IEnumerable<Question> Questions { get; init; }
+            = new List<Question>();
     }
 }
