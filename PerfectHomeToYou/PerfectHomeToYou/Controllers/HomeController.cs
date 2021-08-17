@@ -1,40 +1,48 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 using PerfectHomeToYou.Models;
-using PerfectHomeToYou.Models.Home;
 using PerfectHomeToYou.Services.Apartments;
-using PerfectHomeToYou.Services.Statistics;
+using PerfectHomeToYou.Services.Apartments.Models;
+
+using static PerfectHomeToYou.WebConstants.Cache;
 
 namespace PerfectHomeToYou.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IMemoryCache cache;
         private readonly IApartmentService apartments;
-        private readonly IStatisticsService statistics;
 
-        public HomeController(IApartmentService apartments, IStatisticsService statistics)
+        public HomeController(IMemoryCache cache, IApartmentService apartments)
         {
+            this.cache = cache;
             this.apartments = apartments;
-            this.statistics = statistics;
         }
 
         public IActionResult Index()
         {
-            var latestApartments = this.apartments
-                .Latest()
-                .ToList();
+            var latestApartments = this.cache
+                .Get<List<LatestApartmentServiceModel>>(LatestApartmentsCacheKey);
 
-            var totalStatistics = this.statistics.Total();
+            if (latestApartments == null)
+            {
+                latestApartments = this.apartments
+                    .Latest()
+                    .ToList();
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
+
+                this.cache.Set(LatestApartmentsCacheKey, latestApartments, cacheOptions);
+            }
 
             return View(latestApartments);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
