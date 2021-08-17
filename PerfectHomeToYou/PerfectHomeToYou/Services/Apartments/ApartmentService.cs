@@ -25,7 +25,7 @@ namespace PerfectHomeToYou.Services.Apartments
                 .Apartments
                 .Where(a => !publicOnly || a.IsPublic);
 
-            if (apartmentType != 0 && sorting.Equals(null))
+            if (apartmentType != 0 && sorting.Equals(ApartmentSorting.DateCreated))
             {
                 apartmentQuery = apartmentQuery
                     .Where(a => a.ApartmentType.Equals(apartmentType));
@@ -62,6 +62,7 @@ namespace PerfectHomeToYou.Services.Apartments
                     Id = a.Id,
                     ApartmentType = a.ApartmentType,
                     CityName = a.City.Name,
+                    NeighborhoodName = a.Neighborhood.Name,
                     NeighborhoodId = a.Neighborhood.Id,
                     Floor = a.Floor,
                     Description = a.Description,

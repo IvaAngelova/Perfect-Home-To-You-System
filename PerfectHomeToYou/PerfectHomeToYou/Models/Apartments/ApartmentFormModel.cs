@@ -11,6 +11,7 @@ namespace PerfectHomeToYou.Models.Apartments
     public class ApartmentFormModel : IApartmentModel
     {
         [Required]
+        [Display(Name = "Apartment Type")]
         [EnumDataType(typeof(ApartmentsTypes))]
         public ApartmentsTypes ApartmentType { get; set; }
 
@@ -19,10 +20,9 @@ namespace PerfectHomeToYou.Models.Apartments
         public string CityName { get; init; }
         public IEnumerable<CityViewModel> Cities { get; set; }
 
-        public string NeighborhoodName { get; init; }
-
         [Display(Name = "Neighborhood")]
         public int NeighborhoodId { get; init; }
+        public string NeighborhoodName { get; init; }
         public IEnumerable<ApartmentNeighborhoodModel> Neighborhoods { get; set; }
 
         [Required]
@@ -43,6 +43,7 @@ namespace PerfectHomeToYou.Models.Apartments
         public decimal Price { get; init; }
 
         [Required]
+        [Display(Name = "Rent or Sale")]
         [EnumDataType(typeof(RentOrSale))]
         public RentOrSale RentOrSale { get; set; }
     }

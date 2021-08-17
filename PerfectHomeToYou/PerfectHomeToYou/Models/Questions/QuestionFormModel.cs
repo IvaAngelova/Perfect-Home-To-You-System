@@ -7,6 +7,7 @@ namespace PerfectHomeToYou.Models.Questions
     public class QuestionFormModel
     {
         [Required]
+        [Display(Name = "Question")]
         [StringLength(MessageMaxLength, MinimumLength = MessageMinLength)]
         public string Message { get; set; }
     }

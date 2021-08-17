@@ -35,15 +35,29 @@
 </div>
 
 <br />
-<div class="d-flex justify-content-lg-center">
-    <a asp-controller="Questions" asp-action="Add" asp-route-id="@Model.Id" type="button" class="btn btn-info">Add Question</a>
-</div>
 
-<div class="d-flex justify-content-lg-end">
-    @if (User.IsInRole(AdminConstants.AdministratorRoleName))
+@if (User.Identity.IsAuthenticated || User.IsInRole(AdminConstants.AdministratorRoleName))
+{
+    @if (this.User.Id() != this.Model.UserId)
     {
-        <a asp-controller="Apartments" asp-action="Edit" asp-route-id="@Model.Id" class="badge badge-light">Edit</a>
+        <div class="d-flex justify-content-lg-center">
+            <a asp-controller="Questions" asp-action="Add" asp-route-id="@Model.Id" type="button" class="btn btn-info">Add Question</a>
+        </div>
     }
-    |
-    <a asp-controller="Apartments" asp-action="All" class="badge badge-light">Back to List</a>
-</div>
+
+    <div class="d-flex justify-content-lg-end">
+        @if (User.IsInRole(AdminConstants.AdministratorRoleName))
+        {
+            <a asp-controller="Apartments" asp-action="Edit" asp-route-id="@Model.Id" class="badge badge-light">Edit</a>
+        }
+        |
+        <a asp-controller="Apartments" asp-action="All" class="badge badge-light">Back to List</a>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-lg-end">
+        <a asp-controller="Apartments" asp-action="All" class="badge badge-light">Back to List</a>
+    </div>
+}
+

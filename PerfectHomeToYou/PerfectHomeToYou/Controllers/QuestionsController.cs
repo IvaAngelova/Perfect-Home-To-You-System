@@ -43,7 +43,7 @@ namespace PerfectHomeToYou.Controllers
 
             TempData[GlobalMessageKey] = "Successfully added question!";
 
-            return RedirectToAction(nameof(Add));
+            return RedirectToAction(nameof(MyQuestions));
         }
 
         public IActionResult Delete(int id)
