@@ -5,6 +5,7 @@ using PerfectHomeToYou.Controllers;
 using PerfectHomeToYou.Models.Clients;
 
 using static PerfectHomeToYou.WebConstants;
+using PerfectHomeToYou.Data.Models;
 
 namespace PerfectHomeToYou.Test.Controllers
 {
@@ -23,12 +24,16 @@ namespace PerfectHomeToYou.Test.Controllers
                .View();
 
         [Theory]
-        [InlineData("FirstName", "LastName","+35988 888 8888")]
+        [InlineData("FirstName", "LastName", "+35988 888 8888")]
         public void PostBecomeShouldBeForAuthorizedUsersAndReturnRedirectWithValidModel(
             string clientFirstName, string clientLastName, string phoneNumber)
             => MyController<ClientsController>
                 .Instance(instance => instance
-                    .WithUser())
+                    .WithUser()
+               .WithUser(user => user
+                    .WithIdentifier("test1")
+                    .WithUsername("TestFirst")
+                    .InRole("Client")))
                 .Calling(c => c.Become(new BecomeClientFormModel
                 {
                     FirstName = clientFirstName,
@@ -42,5 +47,6 @@ namespace PerfectHomeToYou.Test.Controllers
                 .AndAlso()
                 .ShouldReturn()
                 .View();
+                
     }
 }

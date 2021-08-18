@@ -99,6 +99,7 @@ namespace PerfectHomeToYou.Controllers
             return View(apartment);
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             if (id == 0)
