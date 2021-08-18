@@ -1,13 +1,8 @@
-﻿using MyTested.AspNetCore.Mvc;
+﻿using Xunit;
+using MyTested.AspNetCore.Mvc;
+
 using PerfectHomeToYou.Controllers;
 using PerfectHomeToYou.Models.Apartments;
-using PerfectHomeToYou.Services.Apartments.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace PerfectHomeToYou.Test.Roulting
 {
@@ -67,7 +62,7 @@ namespace PerfectHomeToYou.Test.Roulting
                 .To<ApartmentsController>(c => c.Edit(1));
 
         [Fact]
-        public void PostEdithoulBeMapped()
+        public void PostEditShoulBeMapped()
             => MyRouting
                 .Configuration()
                 .ShouldMap(request => request
