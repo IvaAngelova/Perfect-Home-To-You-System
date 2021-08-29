@@ -23,7 +23,7 @@ namespace PerfectHomeToYou.Services.Apartments
         {
             var apartmentQuery = this.context
                 .Apartments
-                .Where(a => !publicOnly || a.IsPublic);
+                .Where(a => publicOnly && a.IsPublic);
 
             if (apartmentType != 0 && sorting.Equals(ApartmentSorting.DateCreated))
             {
@@ -101,7 +101,6 @@ namespace PerfectHomeToYou.Services.Apartments
                 .ToList();
 
         public ApartmentDetailsServiceModel Details(int apartmentId)
-
             => this.context
                    .Apartments
                    .Where(a => a.Id == apartmentId)

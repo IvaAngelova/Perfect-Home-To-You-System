@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 
 using PerfectHomeToYou.Data.Models;
+using PerfectHomeToYou.Data.Models.Enumerations;
+using PerfectHomeToYou.Models.Apartments;
 
 namespace PerfectHomeToYou.Test.Data
 {
